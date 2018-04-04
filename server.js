@@ -7,23 +7,30 @@ app.set('view engine', 'pug');
 
 // Index page
 app.get('/', function (req, res) {
-   res.render('index', {title: "Pub!", message: "Welcome to Pub!"});
+	res.sendFile(__dirname + "/html/index.html");
 })
 
 // Redirect anything similar to index to index
 app.get('/index.?*', function (req, res) {
-   res.redirect('/');
+	res.redirect('/');
 })
 
+// Point to pubs router
+var pubs = require("./routes/pubs");
+app.use('/pubs', pubs)
+
 // 404 ERROR, MUST BE LAST
+app.get('/notfound', function (req, res) {
+	res.sendFile(__dirname + "/html/404.html");
+})
 app.use(function(req,res){
-    res.sendFile(__dirname + "/html/404.html")
+	res.redirect('/notfound');
 });
 
 // Server Section
 var server = app.listen(8081, function () {
-   var host = server.address().address
-   var port = server.address().port
+	var host = server.address().address
+	var port = server.address().port
    
-   console.log("Example app listening at http://%s:%s", host, port)
+	console.log("Listening at http://%s:%s", host, port)
 })

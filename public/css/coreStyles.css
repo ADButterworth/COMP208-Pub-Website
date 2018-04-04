@@ -1,0 +1,51 @@
+body {
+    font-family: "PT Sans", "Segoe UI","Helvetica Neue",Arial,sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #373a3c;
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+/*
+ * === TOP NAV BAR ===
+*/
+#topbar {
+    display: block;
+    top: 0;
+    left: 0;
+    overflow: auto;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a, #logo {
+    display: block;
+    color: #fbf5f4;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+#logo {
+    font-family: 'Pacifico', cursive;
+    padding: 14px 25px;
+    background-color: #006494;
+    font-size: 3em;
+    float: left;
+}
+
+li a:hover {
+    background-color: #040e14;
+}

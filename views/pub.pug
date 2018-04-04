@@ -1,0 +1,22 @@
+html
+	head
+		title Pub! - #{name}
+		style
+			include ../public/css/coreStyles.css
+			include ../public/css/pubStyle.css
+		link(href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet')
+	body
+		div(id='topbar')
+			div(id='logo') Pub!
+			ul
+				li
+					a(href='/') Home
+
+		div(id='imgAndName')
+			div(id='locationImage')
+				img(class='roundImg' src=imgPath)
+			h1 Welcome to #{name}!
+
+		div(id='descriptionBox')
+			h2 Description:
+			p= description

@@ -1,5 +1,5 @@
 # COMP208-Pub-Website
-This is the website portion of the COMP208 group project, built using NodeJS + Express + Pug, and MongoDB
+This is the website portion of the COMP208 group project, built using NodeJS + Express + Pug, and MySQL
 
 ## Install for developers on MacOS
 ### Homebrew Install
@@ -7,25 +7,6 @@ This is the website portion of the COMP208 group project, built using NodeJS + E
 > $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 (N.B. This will ask to install Command Line Tools for xcode as part of the install, this is normal)
-
-### MongoDB Install
-- To install MongoDB (Database) 
-> $ brew install mongodb
-
-- Start MongoDB Service (Requries installing brew services)
-> $ brew tap homebrew/services
-
-> $ brew services start mongodb
-
-- Check service started
-> $ brew services list
-
-- Verify mongodb running and correct version
-> $ mongod --version
-
-First line of console output should be: **db version v3.6.3**
-
-(Higher versions *should* be fine, check mongodb docs for changes)
 
 ### NodeJS Install
 Do **NOT** install nodejs via homebrew, it is possible to do so but it can [read: will] break npm (the nodejs package manager) in new and interesting ways that're all really annoying to clean up or fix.
