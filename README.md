@@ -34,6 +34,10 @@ Instead download the installer from [here](https://nodejs.org/en/) and follow th
 
 Newer versions of node probably *won't* be ok, if a new LTS version is released we should migrate the project to the newer version.
 
+## Starting the web server
+- In a terminal in the root dir of the project run
+> $ npm start
+
 ## Useful things
 - [NodeJS Docs](https://nodejs.org/dist/latest-v8.x/docs/api/)
 - [NodeJS Guides](https://nodejs.org/en/docs/guides/)
