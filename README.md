@@ -1,5 +1,5 @@
 # COMP208-Pub-Website
-This is the website portion of the COMP208 group project, built using NodeJS and MongoDB
+This is the website portion of the COMP208 group project, built using NodeJS + Express + Pug, and MongoDB
 
 ## Install for developers on MacOS
 ### Homebrew Install
@@ -33,3 +33,15 @@ Do **NOT** install nodejs via homebrew, it is possible to do so but it can [read
 Instead download the installer from [here](https://nodejs.org/en/) and follow the instructions, I'm using the LTS build (8.11.1) currently.
 
 Newer versions of node probably *won't* be ok, if a new LTS version is released we should migrate the project to the newer version.
+
+## Useful things
+- [NodeJS Docs](https://nodejs.org/dist/latest-v8.x/docs/api/)
+- [NodeJS Guides](https://nodejs.org/en/docs/guides/)
+- [Express Docs + Guides](https://expressjs.com/)
+- [Pug Docs + Guides](https://pugjs.org/api/getting-started.html)
+
+## Quick Reference
+- Routing should be done in server.js
+- Static HTML pages should be stored in $root/html
+- Pug page templates should be placed in $root/views
+- Accessing public/img/meme.png is done via the URL /img/meme.png, public/img/meme.png would be a folder called public, in public.
