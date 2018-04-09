@@ -1,21 +1,14 @@
 html
 	head
 		title Pub!
+		link(href='/favicon.png', rel='icon')
 		style
 			include ../public/css/coreStyles.css
 			include ../public/css/homeStyle.css
 		link(href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet')
 
 	body
-		div(id='topbar')
-			div(id='logo') Pub!
-			ul
-				li
-					a(href='/') Home
-				li 
-					a(href='/about') About
-				li
-					a(href='/findapub') Find Me a Pub
+		include ../views/elements/topbar.pug
 
 		div(id='contents')
 			h2 Welcome to Pub!
