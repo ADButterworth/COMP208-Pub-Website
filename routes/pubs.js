@@ -18,7 +18,7 @@ router.get('/:pubURL', function (req, res) {
 	var sql = 'SELECT * FROM pubs WHERE url = ' + sanitised;
 
 	// Get list of pubs
-	var pubs = con.query(sql, function(error, result, field) {
+	con.query(sql, function(error, result, field) {
 		if (result.length > 0) {
 			res.render('pub', {name: result[0].name, description: result[0].description, imgPath: "../img/" + result[0].url + ".jpg"});
 		}
