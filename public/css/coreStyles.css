@@ -81,3 +81,12 @@ li a:hover {
     overflow: hidden;
     border-radius: 50%;
 }
+
+/*
+ * === MAIN PAGE CONTENTS ===
+*/
+#contents {
+    margin: auto;
+    padding: 10px;
+    width: 75%;
+}

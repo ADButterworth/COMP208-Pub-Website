@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var pubs;
 
 // Open database connection
 var mysql = require('mysql');
@@ -33,6 +32,7 @@ router.get('/:pubURL', function (req, res) {
 // /pubs should redirect to home
 router.get('/', function (req, res) {
 	res.redirect('./');
-})
+});
 
+// last
 module.exports = router;

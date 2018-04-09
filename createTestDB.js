@@ -26,7 +26,7 @@ con.connect(function(err) {
 		console.log("Database selected");
 	});
 
-	con.query("CREATE TABLE pubs (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), description TEXT, url VARCHAR(15))", function (err, result) {
+	con.query("CREATE TABLE pubs (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(40), description TEXT, url VARCHAR(15))", function (err, result) {
 		if (err) throw err;
 		console.log("Table \"Pubs\" created");
 	});

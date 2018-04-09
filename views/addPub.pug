@@ -4,7 +4,22 @@ html
 		link(href='/favicon.png', rel='icon')
 		style
 			include ../public/css/coreStyles.css
-			include ../public/css/pubStyle.css
+			include ../public/css/addStyle.css
 		link(href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet')
 	body
 		include ../views/elements/topbar.pug
+
+		div(id='contents')
+			form(action="/addpub", method="post")
+				h2 Add your own pub!
+				p Pub Name:
+				input(type="text", name="name", maxlength="40", required)
+
+				p Pub Description:
+				textarea(rows="10", cols="75", name="description", required)
+
+				p Custom URL:
+				input(type="text", name="url", maxlength="15", required)
+
+				br
+				input(type="submit" value="Submit")

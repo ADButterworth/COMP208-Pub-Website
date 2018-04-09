@@ -1,0 +1,13 @@
+p {
+	padding: 0;
+	margin: 0;
+}
+
+input {
+	margin-bottom: 10px;
+}
+
+textarea {
+	resize: none;
+	margin-bottom: 10px;
+}
