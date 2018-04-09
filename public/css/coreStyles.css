@@ -49,3 +49,35 @@ li a, #logo {
 li a:hover {
     background-color: #040e14;
 }
+
+/*
+ * === IMAGE AND NAME BOX ===
+*/
+
+.imgAndName_name {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 2.5rem;
+}
+
+.imgAndName_wrapper {
+    margin: auto;
+    min-width: 25%;
+    max-width: 100%;
+    margin-top: 15px;
+}
+
+.imgAndName_img {
+    display: inline;
+    margin: 0 auto;
+    height: auto;
+    width: 100%;
+}
+
+.imgAndName_imgContainer {
+    margin: auto;
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 50%;
+}

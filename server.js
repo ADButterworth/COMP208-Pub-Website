@@ -7,7 +7,17 @@ app.set('view engine', 'pug');
 
 // Index page
 app.get('/', function (req, res) {
-	res.sendFile(__dirname + "/html/index.html");
+	res.render('home');
+})
+
+// About page
+app.get('/about', function (req, res) {
+	res.render('about');
+})
+
+// About page
+app.get('/findapub', function (req, res) {
+	res.redirect('/pubs/thefont');
 })
 
 // Redirect anything similar to index to index
