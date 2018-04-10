@@ -11,3 +11,7 @@ textarea {
 	resize: none;
 	margin-bottom: 10px;
 }
+
+#errBox {
+	color: #f00;
+}

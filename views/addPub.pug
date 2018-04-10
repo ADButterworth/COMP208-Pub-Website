@@ -10,6 +10,10 @@ html
 		include ../views/elements/topbar.pug
 
 		div(id='contents')
+			if error
+				#errBox
+					p Sorry an error occured
+
 			form(action="/addpub", method="post")
 				h2 Add your own pub!
 				p Pub Name:
