@@ -1,0 +1,35 @@
+html
+	head
+		title Pub!
+		link(href='/favicon.png', rel='icon')
+		style
+			include ../public/css/coreStyles.css
+			include ../public/css/addStyle.css
+		link(href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet')
+
+	body
+		include ../views/elements/topbar.pug
+
+		#contents
+			h1 Whatcha looking for?
+
+			form(action="/findapub", method="post")
+				h2 Search by name or location:
+				p Name:
+				input(type="text", name="name", maxlength="40")
+
+				p City:
+				input(type="text", name="city", maxlength="15")
+
+				br 
+				input(type="submit" value="Search")
+
+				hr
+
+			if query
+				if pubs.length > 0
+					each value in pubs
+						.pub
+							h4= value.name
+				else
+					h4 Sorry, we didnt find anything for that
