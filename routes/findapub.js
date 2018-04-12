@@ -19,13 +19,13 @@ router.post('/', function (req, res) {
 	// no injection here
 	var sName = con.escape(req.body.name);
 	var sCity = con.escape(req.body.city);
+	var sKeyword = con.escape("%" + req.body.keyword + "%");
 
 	// form query
-	var sql = "SELECT * FROM pubs WHERE name = " + sName + " OR city = " + sCity;
+	var sql = "SELECT * FROM pubs WHERE name = " + sName + " OR city = " + sCity + " OR keywords LIKE " + sKeyword;
 
 	// run query
 	con.query(sql, function(error, result, field) {
-
 		// display result
 		res.render('findapub', {pubs: result, query: true});
 	});

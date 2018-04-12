@@ -18,19 +18,21 @@ router.get('/', function (req, res) {
 
 // POST to /addpub sanitise/verify and insert into db
 router.post('/', function (req, res) {
-	var sanitisedURL = con.escape(req.body.url);
+	var sURL = con.escape(req.body.url);
 
 	// check if url in use
-	var sql = "SELECT * FROM pubs WHERE url = " + sanitisedURL;
+	var sql = "SELECT * FROM pubs WHERE url = " + sURL;
 	con.query(sql, function(error, result, field) {
 		if (result.length == 0) {
-			var sanitisedName = con.escape(req.body.name);
-			var sanitisedDes = con.escape(req.body.description);
-
 			// name not in use, insert requested data into db
-			var sql = "INSERT INTO pubs(name, description, url) VALUES (" + sanitisedName + ", " + sanitisedDes + ", " + sanitisedURL + ")";
-			con.query(sql, function(error, result, field) {
+			var inserts = [req.body.name, req.body.description, req.body.url, req.body.city, req.body.postcode, req.body.keywords];
+			var sql = "INSERT INTO pubs(name, description, url, city, postcode, keywords) VALUES (?, ?, ?, ?, ?, ?);";
+			sql = con.format(sql, inserts);
 
+			console.log(sql);
+
+			con.query(sql, function(error, result, field) {
+				console.log(error)
 				// redirect to new pages
 				res.redirect('../pubs/' + req.body.url);
 			});

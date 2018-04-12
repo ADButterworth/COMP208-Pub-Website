@@ -4,26 +4,35 @@ html
 		link(href='/favicon.png', rel='icon')
 		style
 			include ../public/css/coreStyles.css
-			include ../public/css/addStyle.css
+			include ../public/css/formStyle.css
 		link(href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet')
 	body
 		include ../views/elements/topbar.pug
 
-		div(id='contents')
+		#contents
 			if error
 				#errBox
 					p Sorry an error occured
 
 			form(action="/addpub", method="post")
-				h2 Add your own pub!
+				h1 Add your own pub!
 				p Pub Name:
 				input(type="text", name="name", maxlength="40", required)
 
 				p Pub Description:
 				textarea(rows="10", cols="75", name="description", required)
 
+				p City:
+				input(type="text", name="city", maxlength="40", required)
+
+				p Postcode:
+				input(type="text", name="postcode", maxlength="7", required)
+
 				p Custom URL:
 				input(type="text", name="url", maxlength="15", required)
+
+				p Keywords:
+				input(type="text", name="keyword", maxlength="40")
 
 				br
 				input(type="submit" value="Submit")

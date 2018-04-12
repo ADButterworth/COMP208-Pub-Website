@@ -90,3 +90,24 @@ li a:hover {
     padding: 10px;
     width: 75%;
 }
+
+/*
+ * === ROW AND COL LAYOUT SECTION
+*/ 
+.col50 {
+    float: left;
+    width: 50%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* If screen narrow, stack instead */
+@media screen and (max-width: 600px) {
+    .col50 {
+        width: 100%;
+    }
+}

@@ -4,7 +4,7 @@ html
 		link(href='/favicon.png', rel='icon')
 		style
 			include ../public/css/coreStyles.css
-			include ../public/css/addStyle.css
+			include ../public/css/formStyle.css
 		link(href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet')
 
 	body
@@ -13,23 +13,36 @@ html
 		#contents
 			h1 Whatcha looking for?
 
-			form(action="/findapub", method="post")
-				h2 Search by name or location:
-				p Name:
-				input(type="text", name="name", maxlength="40")
+			.row
+				.col50
+					form(action="/findapub", method="post")
+						h2 Search by name or location:
+						p Name:
+						input(type="text", name="name", maxlength="40")
 
-				p City:
-				input(type="text", name="city", maxlength="15")
+						p City:
+						input(type="text", name="city", maxlength="15")
 
-				br 
-				input(type="submit" value="Search")
+						br 
+						input(type="submit" value="Search")
+				.col50
+					form(action="/findapub", method="post")
+						h2 Search by keywords:
+						p Keywords:
+						input(type="text", name="keyword")
 
-				hr
+						br 
+						input(type="submit" value="Search")
 
 			if query
+				hr
 				if pubs
 					each value in pubs
 						.pub
 							h4= value.name
+							p= value.description
+							br
+							p #{value.city}, #{value.postcode}
+							br
 				else
 					h4 Sorry, we didnt find anything for that
