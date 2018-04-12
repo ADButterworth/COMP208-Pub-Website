@@ -15,3 +15,16 @@ textarea {
 #errBox {
 	color: #f00;
 }
+
+.pub {
+	border: 1px solid black;
+	border-radius: 10px;
+	border-color: #373a3c;
+
+	margin-bottom: 10px;
+	padding: 10px;
+}
+
+.pub h4 {
+	margin-top: 0;
+}
