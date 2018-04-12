@@ -28,7 +28,7 @@ html
 					form(action="/findapub", method="post")
 						h2 Search by keywords:
 						p Keywords:
-						input(type="text", name="keyword")
+						input(type="text" name="keyword")
 
 						br 
 						input(type="submit" value="Search")
@@ -36,12 +36,17 @@ html
 			if query
 				hr
 				if pubs
+					if pubs.length == 1
+						h3 We found you 1 pub!
+					else
+						h3 We found you #{pubs.length} pubs! 
+
 					each value in pubs
 						.pub
-							h4= value.name
+							h4 
+								a(href="/pubs/"+value.url) #{value.name}
 							p= value.description
 							br
 							p #{value.city}, #{value.postcode}
-							br
 				else
 					h4 Sorry, we didnt find anything for that
