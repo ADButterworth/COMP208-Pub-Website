@@ -10,6 +10,7 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 app.set('view engine', 'pug');
 
+// === STATIC-ISH PAGES ===
 // Index page
 app.get('/', function (req, res) {
 	res.render('home');
@@ -20,16 +21,13 @@ app.get('/about', function (req, res) {
 	res.render('about');
 });
 
-// About page
-app.get('/findapub', function (req, res) {
-	res.redirect('/pubs/thefont');
-});
-
 // Redirect anything similar to index to index
 app.get('/index.?*', function (req, res) {
 	res.redirect('/');
 });
 
+
+// === ROUTERS FOR OTHER PAGES ===
 // Point to pubs router
 var pubs = require("./routes/pubs");
 app.use('/pubs', pubs);
@@ -38,7 +36,11 @@ app.use('/pubs', pubs);
 var addPubs = require("./routes/addPub");
 app.use('/addpub', addPubs);
 
-// 404 ERROR, MUST BE LAST
+// Point to findapub router
+var find = require("./routes/findapub");
+app.use('/findapub', find);
+
+// === HANDLE 404 ERROR ===
 app.get('/404', function (req, res) {
 	res.sendFile(__dirname + "/html/404.html");
 });
@@ -46,7 +48,7 @@ app.use(function(req,res){
 	res.redirect('/404');
 });
 
-// Server Section
+// Open a server on port 5000 
 var server = app.listen(5000, function () {
 	var host = server.address().address
 	var port = server.address().port

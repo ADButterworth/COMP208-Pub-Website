@@ -4,7 +4,8 @@
   "description": "This is the website portion of the COMP208 group project, built using NodeJS and MongoDB",
   "main": "server.js",
   "scripts": {
-    "test": "node createTestDB.js",
+    "initDB": "node createTestDB.js",
+    "test": "nodemon server.js",
     "start": "node server.js"
   },
   "repository": {
@@ -25,5 +26,8 @@
     "multer": "^1.3.0",
     "mysql": "^2.15.0",
     "pug": "^2.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
   }
 }
