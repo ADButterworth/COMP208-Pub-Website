@@ -26,7 +26,6 @@ router.post('/', function (req, res) {
 
 	// run query
 	con.query(sql, function(error, result, field) {
-		// display result
 		res.render('findapub', {pubs: result, query: true});
 	});
 });
