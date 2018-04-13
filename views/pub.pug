@@ -9,11 +9,12 @@ html
 	body
 		include ../views/elements/topbar.pug
 
-		div(class='imgAndName_wrapper')
-			div(class='imgAndName_imgContainer')
-				img(class='imgAndName_img' src=imgPath)
-			h1(class='imgAndName_name') Welcome to #{name}!
+		#contents
+			div(class='imgAndName_wrapper')
+				div(class='imgAndName_imgContainer')
+					img(class='imgAndName_img' src=imgPath)
+				h1(class='imgAndName_name') Welcome to #{name}!
 
-		div(id='descriptionBox')
-			h2 Description:
-			p= description
+			div(id='descriptionBox')
+				h2 Description:
+				p= description
