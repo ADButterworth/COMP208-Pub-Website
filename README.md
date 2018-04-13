@@ -23,7 +23,7 @@ N.B. This command will error first time as it tries to delete a database that do
 
 ## Starting the web server
 - In a terminal in the root dir of the project run
-> $ npm start
+> $ npm test
 
 ## Useful things
 - [NodeJS Docs](https://nodejs.org/dist/latest-v8.x/docs/api/)
