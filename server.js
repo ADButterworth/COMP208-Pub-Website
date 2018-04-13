@@ -25,7 +25,7 @@ app.get('/about', function (req, res) {
 app.get('/index.?*', function (req, res) {
 	res.redirect('/');
 });
-
+//hey
 
 // === ROUTERS FOR OTHER PAGES ===
 // Point to pubs router
