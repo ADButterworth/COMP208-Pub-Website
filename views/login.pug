@@ -1,0 +1,26 @@
+html
+	head
+		title Pub! - Login
+		link(href='/favicon.png', rel='icon')
+		style
+			include ../public/css/coreStyles.css
+			include ../public/css/homeStyle.css
+		link(href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet')
+
+	body
+		include ../views/elements/topbar.pug
+
+		#contents
+			form(action="/login", method="post")
+				h1 Login
+				p Email:
+				input(type="text", name="email", maxlength="40", required)
+
+				p Password:
+				input(type="text" name="description", required)
+
+				br
+				input(type="submit" value="Submit")
+
+				p Or..
+				 a(href = '/signup')Sign Up
