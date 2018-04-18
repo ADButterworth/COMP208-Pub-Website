@@ -40,10 +40,20 @@ app.use('/addpub', addPubs);
 var find = require("./routes/findapub");
 app.use('/findapub', find);
 
-// === HANDLE 404 ERROR ===
+// Point to users router
+var find = require("./routes/user");
+app.use('/users', find);
+
+// === HANDLE 404 REDIR ===
 app.get('/404', function (req, res) {
 	res.sendFile(__dirname + "/html/404.html");
 });
+// === HANDLE WIP ERROR ===
+app.get('/WIP', function (req, res) {
+	res.sendFile(__dirname + "/html/wip.html");
+});
+
+// === CATCH ALL 404 REDIRECT FOR NON-EXISTING ROUTES ===
 app.use(function(req,res){
 	res.redirect('/404');
 });

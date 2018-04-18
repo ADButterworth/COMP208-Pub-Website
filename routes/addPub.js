@@ -29,8 +29,6 @@ router.post('/', function (req, res) {
 			var sql = "INSERT INTO pubs(name, description, url, city, postcode, keywords) VALUES (?, ?, ?, ?, ?, ?);";
 			sql = con.format(sql, inserts);
 
-			console.log(sql);
-
 			con.query(sql, function(error, result, field) {
 				console.log(error)
 				// redirect to new pages
