@@ -42,7 +42,7 @@ app.use('/findapub', find);
 
 // Point to users router
 var find = require("./routes/user");
-app.use('/users', find);
+app.use('/', find);
 
 // === HANDLE 404 REDIR ===
 app.get('/404', function (req, res) {

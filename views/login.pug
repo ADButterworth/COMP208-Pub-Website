@@ -12,12 +12,12 @@ html
 
 		#contents
 			if msg
-				#errBox
+				#errBox(style=`color: ${colour}`)
 					p= msgText
 
-			form(action="/users/login", method="post")
+			form(action="/login", method="post")
 				h1 Login
-				p Email:
+				p Username:
 				input(type="text", name="username", maxlength="40", required)
 
 				p Password:
@@ -27,4 +27,4 @@ html
 				input(type="submit" value="Submit")
 
 				p Or..
-					a(href = '/users/signup') Sign Up
+					a(href = '/signup') Sign Up
