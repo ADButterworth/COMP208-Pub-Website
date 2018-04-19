@@ -1,0 +1,20 @@
+html
+	head
+		title Pub! - #{name}
+		link(href='/favicon.png', rel='icon')
+		style
+			include ../public/css/coreStyles.css
+			include ../public/css/pubStyle.css
+		link(href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet')
+	body
+		include ../views/elements/topbar.pug
+
+		#contents
+			div(class='imgAndName_wrapper')
+				div(class='imgAndName_imgContainer')
+					//-img(class='imgAndName_img' src=imgPath)
+				h1(class='imgAndName_name') Welcome #{name}!
+
+			div(id='descriptionBox')
+				h2 Email:
+				p= email

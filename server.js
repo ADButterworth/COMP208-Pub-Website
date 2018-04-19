@@ -57,9 +57,13 @@ app.use('/addpub', addPubs);
 var find = require("./routes/findapub");
 app.use('/findapub', find);
 
+// Point to signup router
+var signup = require("./routes/signup");
+app.use('/', signup);
+
 // Point to users router
-var find = require("./routes/user");
-app.use('/', find);
+var users = require("./routes/user");
+app.use('/user', users);
 
 // === HANDLE 404 REDIR ===
 app.get('/404', function (req, res) {
