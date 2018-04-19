@@ -112,14 +112,10 @@ li a:hover {
 	}
 }
 
-<<<<<<< HEAD
 /*
  * === MISC ===
 */ 
 hr {
-=======
- hr {
->>>>>>> 0864674e5535e616a511defdb57c107a489970a4
 	border-style: solid;
 	border-width: 0.5px;
 }

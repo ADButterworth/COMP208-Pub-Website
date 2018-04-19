@@ -20,7 +20,7 @@ router.get('/:pubURL', function (req, res) {
 	// Get list of pubs
 	con.query(sql, function(error, result, field) {
 		if (result.length > 0) {
-			res.render('pub', {name: result[0].name, description: result[0].description, imgPath: "../img/" + result[0].url + ".jpg"});
+			res.render('pub', {name: result[0].name, description: result[0].description, imgPath: "../img/" + result[0].url + ".jpg", username: req.session.username});
 		}
 		else {
 			// 404 error if no matching pub

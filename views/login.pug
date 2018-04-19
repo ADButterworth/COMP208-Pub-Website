@@ -1,0 +1,44 @@
+html
+	head
+		title Pub! - Login
+		link(href='/favicon.png', rel='icon')
+		style
+			include ../public/css/coreStyles.css
+			include ../public/css/formStyle.css
+		link(href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet')
+
+	body
+		include ../views/elements/topbar.pug
+
+		#contents
+			if msg
+				#errBox(style=`color: ${colour}`)
+					p= msgText
+
+			.row
+				.col50
+					form(action="/login", method="post")
+						h1 Login
+						p Username:
+						input(type="text", name="username", maxlength="40", required)
+
+						p Password:
+						input(type="password" name="password", required)
+
+						br
+						input(type="submit" value="Submit")
+				
+				.col50
+					form(action="/signup", method="post")
+						h1 Signup
+						p Username:
+						input(type="text", name="username", maxlength="40", required)
+						
+						p Email:
+						input(type="text" name="email", required)
+						
+						p Password:
+						input(type="password" name="password", required)
+
+						br
+						input(type="submit" value="Submit")

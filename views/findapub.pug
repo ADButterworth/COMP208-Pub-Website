@@ -11,7 +11,7 @@ html
 		include ../views/elements/topbar.pug
 
 		#contents
-			h1 Whatcha looking for?
+			h1 What are you looking for?
 			.row
 				.col50
 					form(action="/findapub", method="post")
@@ -38,15 +38,15 @@ html
 				if pubs
 					if pubs.length == 1
 						h3 We found you 1 pub!
-					else
+					else 
 						h3 We found you #{pubs.length} pubs! 
 
 					each value in pubs
-						.pub
+						div(class='pub')
 							h4 
 								a(href="/pubs/"+value.url) #{value.name}
 							p= value.description
 							br
 							p #{value.city}, #{value.postcode}
 				else
-					h4 Sorry, we didnt find anything for that
+					h4 Sorry, we couldn't find a pub for you.

@@ -13,7 +13,7 @@ var con = mysql.createConnection({
 
 // /addpub should redirect to home
 router.get('/', function (req, res) {
-	res.render('addPub', {error: false});
+	res.render('addPub', {error: false, username: req.session.username});
 });
 
 // POST to /addpub sanitise/verify and insert into db
@@ -28,8 +28,6 @@ router.post('/', function (req, res) {
 			var inserts = [req.body.name, req.body.description, req.body.url, req.body.city, req.body.postcode, req.body.keywords];
 			var sql = "INSERT INTO pubs(name, description, url, city, postcode, keywords) VALUES (?, ?, ?, ?, ?, ?);";
 			sql = con.format(sql, inserts);
-
-			console.log(sql);
 
 			con.query(sql, function(error, result, field) {
 				console.log(error)
