@@ -14,13 +14,16 @@ html
 				#errBox
 					p Oops! An error occurred. Please try again.
 
-			form(action="/addpub", method="post")
+			form(action="/addpub", method="post", enctype="multipart/form-data")
 				h1 Add your own pub!
 				p Pub Name:
 				input(type="text", name="name", maxlength="40", required)
 
 				p Pub Description:
 				textarea(rows="10", cols="75", name="description", required)
+
+				p Profile Image:
+				input(type="file", name="avatar", required)
 
 				p City:
 				input(type="text", name="city", maxlength="40", required)
@@ -35,4 +38,4 @@ html
 				input(type="text", name="keyword", maxlength="40")
 
 				br
-				input(type="submit" value="Submit")
+				input(type="submit" name="submit" value="Upload")

@@ -3,9 +3,10 @@ var express = require('express');
 var app = express();
 
 // For POST Params
-var bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({
+	extended: true
+}));
 
 // provides protection against common well-known vulnerabilities 
 var helmet = require('helmet');
@@ -15,10 +16,10 @@ app.use(helmet());
 var session = require('express-session')
 app.set('trust proxy', 1); // trust first proxy
 app.use(session({
-  secret: 'thissecretbyourwordsprotected',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false } // this is fine as cookie passed by HTTPS to nginx then routed internally only using HTTP
+	secret: 'thissecretbyourwordsprotected',
+	resave: false,
+	saveUninitialized: true,
+	cookie: { secure: false } // this is fine as cookie passed by HTTPS to nginx then routed internally only using HTTP
 }));
 
 // set public dir
@@ -58,7 +59,7 @@ var find = require("./routes/findapub");
 app.use('/findapub', find);
 
 // Point to signup router
-var signup = require("./routes/signup");
+var signup = require("./routes/signin");
 app.use('/', signup);
 
 // Point to users router
@@ -83,6 +84,6 @@ app.use(function(req,res){
 var server = app.listen(5000, function () {
 	var host = server.address().address
 	var port = server.address().port
-   
+	
 	console.log("Listening at http://%s:%s", host, port)
 });

@@ -1,6 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
+// for file uploads
+const multer = require('multer');
+const upload = multer({
+	dest: '../public/img'
+}); 
+
 // bcrypt setup
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -60,7 +66,7 @@ router.post('/login', function (req, res) {
 });
 
 // /signup POST should validate and enter user data into DB
-router.post('/signup', function (req, res) {
+router.post('/signup', upload.single('avatar'), function (req, res) {
 	// <anything>@<anything>.<anything>
 	// not the best email validation, but it'll work
 	var emailRE = /\S+@\S+\.\S+/;
@@ -71,11 +77,11 @@ router.post('/signup', function (req, res) {
 		sql = con.format(sql, inserts);
 
 		con.query(sql, function(error, result, field) {
-			// if no user, redir to error, else check password vs hash
+			// if user exists, redir to error, else hash password and store
 			if (result.length == 0) {
 				bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
-					var inserts2 = [req.body.username, req.body.email, hash];
-					var sql2 = "INSERT INTO users(username, email, password) VALUES (?, ?, ?)";
+					var inserts2 = [req.body.username, req.body.email, req.body.name, hash];
+					var sql2 = "INSERT INTO users(username, email, name, password) VALUES (?, ?, ?, ?)";
 					sql2 = con.format(sql2, inserts2);
 
 					con.query(sql2, function(error, result, field) {

@@ -18,7 +18,7 @@ router.get('/:username', function(req, res) {
 	// Get user with username
 	con.query(sql, function(error, result, field) {
 		if (result.length != 0) {
-			res.render('profile', {name: result[0].username, email: result[0].email, username: req.session.username});
+			res.render('profile', {name: result[0].name, email: result[0].email, imgPath: "../img/pubs/" + result[0].username + ".jpg", username: req.session.username});
 		}
 		else {
 			// 404 error if no matching user
