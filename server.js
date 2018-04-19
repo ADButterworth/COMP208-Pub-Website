@@ -11,6 +11,16 @@ app.use(bodyParser.json());
 var helmet = require('helmet');
 app.use(helmet());
 
+// server side session data, for logins etc. 
+var session = require('express-session')
+app.set('trust proxy', 1); // trust first proxy
+app.use(session({
+  secret: 'thissecretbyourwordsprotected',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // this is fine as cookie passed by HTTPS to nginx then routed internally only using HTTP
+}));
+
 // set public dir
 app.use(express.static('public'));
 
@@ -20,12 +30,12 @@ app.set('view engine', 'pug');
 // === STATIC-ISH PAGES ===
 // Index page
 app.get('/', function (req, res) {
-	res.render('home');
+	res.render('home', {username: req.session.username});
 });
 
 // About page
 app.get('/about', function (req, res) {
-	res.render('about');
+	res.render('about', {username: req.session.username});
 });
 
 // Redirect anything similar to index to index

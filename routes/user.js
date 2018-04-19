@@ -21,7 +21,14 @@ router.get('/signup', function (req, res) {
 
 // /login should show login page
 router.get('/login', function (req, res) {
-	res.render('login', {msg: false});
+	res.render('login', {msg: false, username: req.session.username});
+});
+
+// /login should show login page
+router.get('/logout', function (req, res) {
+	req.session.destroy(function() {
+		res.render('login', {msg: true, msgText: "Logged out", colour: "#0f0"});
+	});
 });
 
 // /login POST should validate then set cookie
@@ -36,16 +43,18 @@ router.post('/login', function (req, res) {
 			bcrypt.compare(req.body.password, result1[0].password, function(err, result2) {
 				// if password matches hash, show login success, else show invalid password
 				if (result2 == true) {
-					// TODO: should probably be something with cookies or tokens here to remember login success
-					res.render('login', {msg: true, msgText: "Login Success", colour: "#0f0"});
+					req.session.userID = result1[0].id;
+					req.session.username = req.body.username;
+
+					res.render('login', {msg: true, msgText: "Login success, welcome back " + req.session.username, colour: "#0f0", username: req.session.username});
 				}
 				else {
-					res.render('login', {msg: true, msgText: "Password invalid", colour: "#f00"});
+					res.render('login', {msg: true, msgText: "Password invalid", colour: "#f00", username: req.session.username});
 				}
 			});
 		}
 		else {
-			res.render('login', {msg: true, msgText: "Username not found", colour: "#f00"});
+			res.render('login', {msg: true, msgText: "Username not found", colour: "#f00", username: req.session.username});
 		}
 	});
 });
@@ -71,18 +80,18 @@ router.post('/signup', function (req, res) {
 
 					con.query(sql2, function(error, result, field) {
 						if(!error) {
-							res.render('login', {msg: true, msgText: "Account Created", colour: "#0f0"});
+							res.render('login', {msg: true, msgText: "Account Created", colour: "#0f0", username: req.session.username});
 						}
 					});
 				});
 			}
 			else {
-				res.render('login', {msg: true, msgText: "That username/email is already in use", colour: "#f00"});
+				res.render('login', {msg: true, msgText: "That username/email is already in use", colour: "#f00", username: req.session.username});
 			}
 		});
 	}
 	else {
-		res.render('login', {msg: true, msgText: "Please enter a proper email", colour: "#f00"});
+		res.render('login', {msg: true, msgText: "Please enter a proper email", colour: "#f00", username: req.session.username});
 	}
 });
 

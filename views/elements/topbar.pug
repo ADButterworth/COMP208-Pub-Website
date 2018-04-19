@@ -9,5 +9,10 @@ div(id='topbar')
 					a(href='/findapub') Find Me a Pub
 				li
 					a(href='/addpub') Add Your Pub!
-				li(style="float: right;")
-					a(href='/login') Login/Signup
+
+				if username
+					li(style="float: right;")
+						a(href='/logout') #{username}, logout
+				else
+					li(style="float: right;")
+						a(href='/login') Login/Signup

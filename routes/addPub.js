@@ -13,7 +13,7 @@ var con = mysql.createConnection({
 
 // /addpub should redirect to home
 router.get('/', function (req, res) {
-	res.render('addPub', {error: false});
+	res.render('addPub', {error: false, username: req.session.username});
 });
 
 // POST to /addpub sanitise/verify and insert into db
