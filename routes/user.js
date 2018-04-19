@@ -30,12 +30,12 @@ router.post('/login', function (req, res) {
 	var inserts = [req.body.username];
 	var sql = "SELECT id, password FROM users WHERE username = ?";
 	sql = con.format(sql, inserts);
-	con.query(sql, function(error, result, field) {
+	con.query(sql, function(error, result1, field) {
 		// if no user, redir to error, else check password vs hash
-		if (result.length != 0) {
-			bcrypt.compare(req.body.password, result[0].password, function(err, res) {
+		if (result1.length != 0) {
+			bcrypt.compare(req.body.password, result1[0].password, function(err, result2) {
 				// if password matches hash, show login success, else show invalid password
-				if (res == true) {
+				if (result2 == true) {
 					// TODO: should probably be something with cookies or tokens here to remember login success
 					res.render('login', {msg: true, msgText: "Login Success", colour: "#0f0"});
 				}

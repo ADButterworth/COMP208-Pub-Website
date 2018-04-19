@@ -7,7 +7,14 @@ var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// provides protection against common well-known vulnerabilities 
+var helmet = require('helmet');
+app.use(helmet());
+
+// set public dir
 app.use(express.static('public'));
+
+// set pug as the html templater 
 app.set('view engine', 'pug');
 
 // === STATIC-ISH PAGES ===

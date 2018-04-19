@@ -15,16 +15,30 @@ html
 				#errBox(style=`color: ${colour}`)
 					p= msgText
 
-			form(action="/login", method="post")
-				h1 Login
-				p Username:
-				input(type="text", name="username", maxlength="40", required)
+			.row
+				.col50
+					form(action="/login", method="post")
+						h1 Login
+						p Username:
+						input(type="text", name="username", maxlength="40", required)
 
-				p Password:
-				input(type="text" name="password", required)
+						p Password:
+						input(type="password" name="password", required)
 
-				br
-				input(type="submit" value="Submit")
+						br
+						input(type="submit" value="Submit")
+				
+				.col50
+					form(action="/signup", method="post")
+						h1 Signup
+						p Username:
+						input(type="text", name="username", maxlength="40", required)
+						
+						p Email:
+						input(type="text" name="email", required)
+						
+						p Password:
+						input(type="password" name="password", required)
 
-				p Or..
-					a(href = '/signup') Sign Up
+						br
+						input(type="submit" value="Submit")
