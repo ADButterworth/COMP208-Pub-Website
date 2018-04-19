@@ -60,3 +60,9 @@ typings/
 # dotenv environment variables file
 .env
 
+# images
+public/img/pubs/*
+public/img/users/*
+!public/img/pubs/thefont.jpg
+!public/img/pubs/thesphinx.jpg
+!public/img/users/adbutte.jpg
