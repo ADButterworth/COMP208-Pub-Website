@@ -69,6 +69,16 @@ fs.readFile(__dirname + "/testData/pubImages.sql", "utf8", function (err,data) {
 	con.query(data, function (err, result) {
 		if (err) throw err;
 		console.log("    Table \"pubImages\" populated");
+	});
+});
+
+fs.readFile(__dirname + "/testData/userImages.sql", "utf8", function (err,data) {
+	if (err) {
+		return console.log(err);
+	}
+	con.query(data, function (err, result) {
+		if (err) throw err;
+		console.log("    Table \"userImages\" populated");
 
 		con.end();
 	});
