@@ -100,6 +100,7 @@ li a:hover {
 }
 
 .col33{
+	text-align: center;
 	float: left;
 	width: 33%;
 }
