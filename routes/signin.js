@@ -3,9 +3,32 @@ var router = express.Router();
 
 // for file uploads
 const multer = require('multer');
+var storage = multer.diskStorage({
+	destination: 'public/img/',
+
+	// rename file to random hex, but keep original ext
+	filename: function ( req, file, cb ) {
+		let ext = file.originalname.substring(file.originalname.lastIndexOf('.'), file.originalname.length);
+		require('crypto').randomBytes(10, function(err, buffer) {
+			var token = buffer.toString('hex');
+			cb(null, token + ext);
+		});
+	}
+});
 const upload = multer({
-	dest: '../public/img'
-}); 
+	storage: storage,
+	fileFilter: function (req, file, callback) {
+		var ext = file.originalname.substring(file.originalname.lastIndexOf('.'), file.originalname.length);
+		if(ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+			return callback(new Error('Only images are allowed'))
+		}
+		callback(null, true)
+	},
+	onError : function(err, next) {
+		console.log('error', err);
+		next(err);
+	}
+});
 
 // bcrypt setup
 var bcrypt = require('bcrypt');
@@ -49,8 +72,14 @@ router.post('/login', function (req, res) {
 			bcrypt.compare(req.body.password, result1[0].password, function(err, result2) {
 				// if password matches hash, show login success, else show invalid password
 				if (result2 == true) {
+					// server side session variables
 					req.session.userID = result1[0].id;
 					req.session.username = req.body.username;
+
+					// user side cookie to auth with server session
+					var hour = 3600000;
+					req.session.cookie.expires = new Date(Date.now() + hour);
+					req.session.cookie.maxAge = hour;
 
 					res.render('login', {msg: true, msgText: "Login success, welcome back " + req.session.username, colour: "#0f0", username: req.session.username});
 				}
@@ -86,7 +115,28 @@ router.post('/signup', upload.single('avatar'), function (req, res) {
 
 					con.query(sql2, function(error, result, field) {
 						if(!error) {
-							res.render('login', {msg: true, msgText: "Account Created", colour: "#0f0", username: req.session.username});
+							// get new pub ID 
+							var inserts3 = [req.body.username];
+							var sql3 = "SELECT * FROM users WHERE username = ?";
+							sql3 = con.format(sql3, inserts3);
+							con.query(sql3, function(error, result3, field) {
+								// link image to pub
+								var inserts = [result3[0].id, req.file.filename];
+								var sql = "INSERT INTO userImages (userID, imageName) VALUES (?, ?)"
+								sql = con.format(sql, inserts);
+								con.query(sql, function(error, result, field) {
+									// server side session variables
+									req.session.userID = result1[0].id;
+									req.session.username = req.body.username;
+									
+									// redirect to new pages
+									res.redirect('user/' + req.body.username);
+								});
+							});
+						}
+						else {
+							console.log(error);
+							res.render('login', {msg: true, msgText: "Sorry there was an error, please try again.", colour: "#f00", username: req.session.username});
 						}
 					});
 				});

@@ -13,12 +13,12 @@ var con = mysql.createConnection({
 router.get('/:username', function(req, res) {
 	// Sanitise user input to prevent SQL injection
 	var sanitised = con.escape(req.params['username']);
-	var sql = 'SELECT * FROM users WHERE username = ' + sanitised;
+	var sql = 'SELECT * FROM users JOIN userImages ON users.id = userImages.userID WHERE username = ' + sanitised;
 
 	// Get user with username
 	con.query(sql, function(error, result, field) {
 		if (result.length != 0) {
-			res.render('profile', {name: result[0].name, email: result[0].email, imgPath: "../img/pubs/" + result[0].username + ".jpg", username: req.session.username});
+			res.render('profile', {name: result[0].name, email: result[0].email, imgPath: "../img/" + result[0].imageName, username: req.session.username});
 		}
 		else {
 			// 404 error if no matching user

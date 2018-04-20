@@ -30,9 +30,6 @@ const upload = multer({
 	}
 });
 
-// for dealing with paths
-var path = require('path');
-
 // Open database connection
 var mysql = require('mysql');
 var con = mysql.createConnection({

@@ -29,10 +29,13 @@ html
 						input(type="submit" value="Submit")
 				
 				.col50
-					form(action="/signup", method="post")
+					form(action="/signup", method="post", enctype="multipart/form-data")
 						h1 Signup
 						p Username:
 						input(type="text", name="username", maxlength="40", required)
+
+						p Profile Image:
+						input(type="file", name="avatar", required)
 						
 						p Email:
 						input(type="text" name="email", required)
