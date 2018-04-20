@@ -95,6 +95,7 @@ li a:hover {
  * === ROW AND COL LAYOUT SECTION ===
 */
 .col50 {
+	text-align:center;
 	float: left;
 	width: 50%;
 }
