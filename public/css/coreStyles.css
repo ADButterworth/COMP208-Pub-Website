@@ -93,10 +93,17 @@ li a:hover {
 
 /*
  * === ROW AND COL LAYOUT SECTION ===
-*/ 
+*/
 .col50 {
+	text-align:center;
 	float: left;
 	width: 50%;
+}
+
+.col33{
+	text-align: center;
+	float: left;
+	width: 33%;
 }
 
 .row:after {
@@ -110,11 +117,14 @@ li a:hover {
 	.col50 {
 		width: 100%;
 	}
+	.col33{
+		width: 100%;
+	}
 }
 
 /*
  * === MISC ===
-*/ 
+*/
 hr {
 	border-style: solid;
 	border-width: 0.5px;

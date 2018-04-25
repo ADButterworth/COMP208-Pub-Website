@@ -10,36 +10,39 @@ html
 	body
 		include ../views/elements/topbar.pug
 
+
 		#contents
-			h1 Welcome to Pub! 
-			//- Put these two in the centre of the page, along with the logo above it. //
-			p *Insert slogan here*
-			
-			//- Left block //
-			h2 Check In
-			p Check into pubs that 
-			p you visit and see who's
-			p there.
-			
-			//- 
-				These small blocks of text 
-				should be side-by-side, not
-				beneath each other.
-			// 
-			
-			//- Middle block //
-			h3 Meet New People		 
-			p Meet other users	
-			p who are at the same 
-			p pub as you, and scan 
-			p their unique QR code 
-			p to earn points.
-			
-			//- Right block
-			h4 Get Rewards
-			p Pubs will provide you
-			p with discounts and offers
-			p based off of your points
-			p total. 
-			
-	
+			.row
+				.col50
+					h1 Welcome to Pub!
+					//- Put these two in the centre of the page, along with the logo above it. //
+					p Drink anywhere
+					
+			.row
+				.col33
+					//- Left block //
+
+					h2 Check In
+					p Check into pubs that
+					p you visit and see who's
+					p there.
+
+					//-
+						These small blocks of text
+						should be side-by-side, not
+						beneath each other.
+					//
+				.col33
+					//- Middle block //
+					h2 Meet New People
+					p Meet other users
+					p who are at the same
+					p pub as you, and earn
+					p points by doing so.
+				.col33
+					//- Right block
+					h2 Get Rewards
+					p Pubs will provide you
+					p with discounts and offers
+					p based off of your points
+					p total.
