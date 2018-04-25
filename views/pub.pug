@@ -15,6 +15,17 @@ html
 					img(class='imgAndName_img' src=imgPath)
 				h1(class='imgAndName_name') Welcome to #{name}!
 
-			div(id='descriptionBox')
+			div(class='descriptionBox')
 				h2 Description:
 				p= description
+
+			.row
+				.col50
+					h3 Come find us at:
+					p(class='noPadding')= city
+					p= postcode
+
+			div(class='imgAndName_wrapper')
+				div(class='imgAndName_imgContainer')
+					img(class='imgAndName_img' src=ownerImgPath)
+				h3(class='imgAndName_name' style='font-size: 1.5em;') Owned by: #{ownerName}.

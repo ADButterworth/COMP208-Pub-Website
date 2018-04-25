@@ -2,7 +2,7 @@
  * === DESCRIPTION BOX ===
 */ 
 
-#descriptionBox {
+.descriptionBox {
 	margin: auto;
 	padding: 10px;
 	min-height: 200px;
