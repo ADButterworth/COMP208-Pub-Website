@@ -4,11 +4,11 @@ div(id='topbar')
 				li
 					a(href='/') Home
 				li 
-					a(href='/about') About
+					a(href='/about') About Us
 				li
-					a(href='/findapub') Find Me a Pub
+					a(href='/findapub') Find Me A Pub
 				li
-					a(href='/addpub') Add Your Pub!
+					a(href='/addpub') Add Your Pub
 
 				if username
 					//- reverse order, sorry not sorry
@@ -18,4 +18,4 @@ div(id='topbar')
 						a(href=`/user/${username}`) Profile
 				else
 					li(style="float: right;")
-						a(href='/login') Login/Signup
+						a(href='/login') Login / Sign Up
