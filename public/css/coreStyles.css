@@ -62,7 +62,7 @@ li a:hover {
 
 .imgAndName_wrapper {
 	margin: auto;
-	min-width: 25%;
+	min-width: 33%;
 	max-width: 100%;
 	margin-top: 15px;
 }
@@ -71,7 +71,9 @@ li a:hover {
 	display: inline;
 	margin: 0 auto;
 	height: auto;
-	width: 100%;
+	width: auto;
+	max-width: 150px;
+	max-height: 150px;
 }
 
 .imgAndName_imgContainer {
@@ -138,4 +140,8 @@ hr {
 		-ms-user-select: none; /* Internet Explorer/Edge */
 			user-select: none; /* Non-prefixed version, currently
 								  supported by Chrome and Opera */
+}
+
+.noMargin {
+	margin: 0;
 }
