@@ -27,6 +27,7 @@ con.query("CREATE TABLE pubs (id INT AUTO_INCREMENT PRIMARY KEY, ownerID INT NOT
 	console.log("    Table \"Pubs\" created");
 });
 
+
 con.query("CREATE TABLE users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(40) NOT NULL, email VARCHAR(256) NOT NULL, name VARCHAR(40), password VARCHAR(255) NOT NULL)", function (err, result) {
 	if (err) throw err;
 	console.log("    Table \"Users\" created");
