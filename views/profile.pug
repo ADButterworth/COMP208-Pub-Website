@@ -5,6 +5,7 @@ html
 		style
 			include ../public/css/coreStyles.css
 			include ../public/css/pubStyle.css
+			include ../public/css/userStyle.css
 		link(href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet')
 	body
 		include ../views/elements/topbar.pug
@@ -18,3 +19,13 @@ html
 			div(id='descriptionBox')
 				h2 Email:
 				p= email
+
+			if pubs
+				br
+				h4 Your Pubs:
+				#pubBlock
+					each value in pubs
+							div(class='pub')
+								h4 
+									a(href="/pubs/"+value.url) #{value.name}
+								p #{value.city}, #{value.postcode}

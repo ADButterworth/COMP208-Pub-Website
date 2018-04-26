@@ -3,12 +3,16 @@ var router = express.Router();
 
 // Open database connection
 var mysql = require('mysql');
-
 var con = mysql.createConnection({
 	host: "localhost",
 	user: "root",
 	password: process.env.MYSQL,
 	database: "pubTestDB"
+});
+
+// location service for map
+var googleMapsClient = require('@google/maps').createClient({
+	key: 'AIzaSyDqYM9hSp5-xP0X-_b2G10nKQCvpTccX-0'
 });
 
 // When a pub is requested
@@ -24,14 +28,36 @@ router.get('/:pubURL', function (req, res) {
 			if (result1.length != 0) {
 				var sql2 = 'SELECT imageName FROM pubImages WHERE pubID = ' + result1[0].id + ' LIMIT 1';
 				con.query(sql2, function(error, result2, field) {
-					res.render('pub', {	name: 			result1[0].name, 
-										description: 	result1[0].description, 
-										imgPath: 		"../img/" + result2[0].imageName, 
-										ownerName: 		result1[0].ownerName, 
-										ownerImgPath: 	"../img/" + result1[0].ownerImage, 
-										username: 		req.session.username,
-										city:  			result1[0].city,
-										postcode: 		result1[0].postcode
+
+					// API request for map
+					googleMapsClient.geocode({
+						address: result1[0].postcode
+					}, 
+					function(err, response) {
+						if (!err) {
+							res.render('pub', {	name: 			result1[0].name, 
+												description: 	result1[0].description, 
+												imgPath: 		"../img/" + result2[0].imageName, 
+												ownerName: 		result1[0].ownerName, 
+												ownerImgPath: 	"../img/" + result1[0].ownerImage, 
+												username: 		req.session.username,
+												city:  			result1[0].city,
+												postcode: 		result1[0].postcode,
+												lat: response.json.results[0].geometry.location.lat,
+												lng: response.json.results[0].geometry.location.lng
+							});
+						}
+						else {
+							res.render('pub', {	name: 			result1[0].name, 
+												description: 	result1[0].description, 
+												imgPath: 		"../img/" + result2[0].imageName, 
+												ownerName: 		result1[0].ownerName, 
+												ownerImgPath: 	"../img/" + result1[0].ownerImage, 
+												username: 		req.session.username,
+												city:  			result1[0].city,
+												postcode: 		result1[0].postcode,
+							});							
+						}
 					});
 				});
 			}

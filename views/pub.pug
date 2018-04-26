@@ -29,3 +29,7 @@ html
 				div(class='imgAndName_imgContainer')
 					img(class='imgAndName_img' src=ownerImgPath)
 				h3(class='imgAndName_name' style='font-size: 1.5em;') Owned by: #{ownerName}.
+
+			#map(style='height: 400px;width: 100%;')
+			script(lat= `${lat}` lng=`${lng}` src='/js/map.js' id="loc")
+			script(async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqYM9hSp5-xP0X-_b2G10nKQCvpTccX-0&callback=initMap")

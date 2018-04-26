@@ -61,8 +61,6 @@ typings/
 .env
 
 # images
-public/img/pubs/*
-public/img/users/*
-!public/img/pubs/thefont.jpg
-!public/img/pubs/thesphinx.jpg
-!public/img/users/adbutte.jpg
+public/img/*
+!public/img/adbutte.jpg
+!public/img/testpub.jpg
