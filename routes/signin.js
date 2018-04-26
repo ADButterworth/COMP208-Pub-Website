@@ -115,12 +115,12 @@ router.post('/signup', upload.single('avatar'), function (req, res) {
 
 					con.query(sql2, function(error, result, field) {
 						if(!error) {
-							// get new pub ID 
+							// get new user ID 
 							var inserts3 = [req.body.username];
 							var sql3 = "SELECT * FROM users WHERE username = ?";
 							sql3 = con.format(sql3, inserts3);
 							con.query(sql3, function(error, result3, field) {
-								// link image to pub
+								// link image to user
 								var inserts = [result3[0].id, req.file.filename];
 								var sql = "INSERT INTO userImages (userID, imageName) VALUES (?, ?)"
 								sql = con.format(sql, inserts);
@@ -130,7 +130,7 @@ router.post('/signup', upload.single('avatar'), function (req, res) {
 									req.session.username = req.body.username;
 									
 									// redirect to new pages
-									res.redirect('user/' + req.body.username);
+									res.redirect('/user/' + req.body.username);
 								});
 							});
 						}
