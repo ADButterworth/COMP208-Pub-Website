@@ -126,7 +126,7 @@ router.post('/signup', upload.single('avatar'), function (req, res) {
 								sql = con.format(sql, inserts);
 								con.query(sql, function(error, result, field) {
 									// server side session variables
-									req.session.userID = result1[0].id;
+									req.session.userID = result3[0].id;
 									req.session.username = req.body.username;
 									
 									// redirect to new pages
