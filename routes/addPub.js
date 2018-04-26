@@ -39,7 +39,8 @@ var con = mysql.createConnection({
 	database: "pubTestDB"
 });
 
-// /addpub should redirect to home
+// /addpub basic render, no query run yet
+// if user not logged in redir to login page
 router.get('/', function (req, res) {
 	if (req.session.userID) {
 		res.render('addPub', {error: false, username: req.session.username});

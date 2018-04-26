@@ -1,27 +1,21 @@
 var express = require('express');
 var router = express.Router();
-var request = require('request');
 
-
-
+var googleMapsClient = require('@google/maps').createClient({
+	key: 'AIzaSyDqYM9hSp5-xP0X-_b2G10nKQCvpTccX-0'
+});
 
 // Open database connection
 router.get('/', function(req,res){
-	request.post(
-    'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCufaYe9XTElRrifvNPo3HM6mC8LBoy2Tw',
-    { json: {} },
-    function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            //res.send(body)
-			res.render('harvey', {lat: body.location.lat, lng: body.location.lng} )
-	        }
-	    else {
-	    	res.render('harvey', {lat: 0, lng: 0} )
-
-	    }
-	    }
-	);
-
+	// Geocode an address.
+	googleMapsClient.geocode({
+		address: 'L66DN'
+	}, 
+	function(err, response) {
+		if (!err) {
+			res.render('harvey', {lat: response.json.results[0].geometry.location.lat, lng: response.json.results[0].geometry.location.lng});
+		}
+	});
 });
 
 //last
