@@ -62,9 +62,6 @@ app.use('/findapub', find);
 var signup = require("./routes/signin");
 app.use('/', signup);
 
-var harveytest = require("./routes/harveytest");
-app.use('/harvey', harveytest);
-
 // Point to users router
 var users = require("./routes/user");
 app.use('/user', users);
