@@ -18,10 +18,16 @@ router.get('/:username', function(req, res) {
 	// Get user with username
 	con.query(sql, function(error, result, field) {
 		if (result.length != 0) {
-			var sql2 = 'SELECT DISTINCT * FROM pubs WHERE ownerID = ' + result[0].id;
-			con.query(sql2, function(error, result2, field) {
-				res.render('profile', {name: result[0].name, email: result[0].email, imgPath: "../img/" + result[0].imageName, pubs: result2, username: req.session.username});
-			});
+			// if they are the owner then show their pubs, else only show profile page
+			if (req.session.username == req.params['username']) {
+				var sql2 = 'SELECT DISTINCT * FROM pubs WHERE ownerID = ' + result[0].id;
+				con.query(sql2, function(error, result2, field) {
+					res.render('profile', {name: result[0].name, email: result[0].email, imgPath: "../img/" + result[0].imageName, pubs: result2, username: req.session.username});
+				});
+			}
+			else {
+				res.render('profile', {name: result[0].name, email: result[0].email, imgPath: "../img/" + result[0].imageName, username: req.session.username});
+			}
 		}
 		else {
 			// 404 error if no matching user

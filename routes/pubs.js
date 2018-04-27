@@ -31,7 +31,7 @@ router.get('/:pubURL', function (req, res) {
 
 					// API request for map
 					googleMapsClient.geocode({
-						address: result1[0].postcode
+						address: "" + result1[0].city + result1[0].postcode
 					}, 
 					function(err, response) {
 						if (!err) {
@@ -43,8 +43,8 @@ router.get('/:pubURL', function (req, res) {
 												username: 		req.session.username,
 												city:  			result1[0].city,
 												postcode: 		result1[0].postcode,
-												lat: response.json.results[0].geometry.location.lat,
-												lng: response.json.results[0].geometry.location.lng
+												lat: 			response.json.results[0].geometry.location.lat,
+												lng: 			response.json.results[0].geometry.location.lng
 							});
 						}
 						else {

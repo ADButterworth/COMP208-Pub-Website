@@ -8,3 +8,9 @@
 	min-height: 200px;
 	width: 75%;
 }
+
+#map {
+	margin: auto;
+	width: calc(100% - 20px);
+	height: 300px;
+}
