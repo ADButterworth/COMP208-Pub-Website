@@ -10,12 +10,12 @@ html
 		include ../views/elements/topbar.pug
 
 		#contents
-			div(class='imgAndName_wrapper')
-				div(class='imgAndName_imgContainer')
+			.imgAndName_wrapper
+				.imgAndName_imgContainer
 					img(class='imgAndName_img' src=imgPath)
 				h1(class='imgAndName_name') Welcome to #{name}!
 
-			div(class='descriptionBox')
+			.descriptionBox
 				h2 Description:
 				p= description
 
@@ -27,8 +27,8 @@ html
 				.col50
 					#map
 
-			div(class='imgAndName_wrapper' style='padding-top: 10px;')
-				div(class='imgAndName_imgContainer')
+			.imgAndName_wrapper(style='padding-top: 10px;')
+				.imgAndName_imgContainer
 					img(class='imgAndName_img' src=ownerImgPath)
 				h3(class='imgAndName_name' style='font-size: 1.5em;') Owned by: #{ownerName}.
 

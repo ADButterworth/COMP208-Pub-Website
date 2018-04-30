@@ -16,7 +16,7 @@ app.use(helmet());
 var session = require('express-session')
 app.set('trust proxy', 1); // trust first proxy
 app.use(session({
-	secret: 'thissecretbyourwordsprotected',
+	secret: '21d25ff2fd5edc7f566fdc0fafa9feb365036043038bf7b250',
 	resave: false,
 	saveUninitialized: true,
 	cookie: { secure: false } // this is fine as cookie passed by HTTPS to nginx then routed internally only using HTTP
