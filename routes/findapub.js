@@ -12,7 +12,7 @@ var con = mysql.createConnection({
 
 // /findapub should show search page
 router.get('/', function (req, res) {
-	res.render('findapub', {username: req.session.username});
+	res.render('findapub', {username: req.session.username, admin: req.session.admin});
 });
 
 router.post('/', function (req, res) {
@@ -26,7 +26,7 @@ router.post('/', function (req, res) {
 
 	// run query
 	con.query(sql, function(error, result, field) {
-		res.render('findapub', {pubs: result, query: true, username: req.session.username});
+		res.render('findapub', {pubs: result, query: true, username: req.session.username, admin: req.session.admin});
 	});
 });
 

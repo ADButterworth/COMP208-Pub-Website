@@ -84,7 +84,7 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
 				});
 			}
 			else {
-				res.render('addPub', {error: true});
+				res.render('addPub', {error: true, username: req.session.username, admin: req.session.admin});
 			}
 		});
 	}

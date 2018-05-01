@@ -136,7 +136,7 @@ router.post('/signup', upload.single('avatar'), function (req, res) {
 						}
 						else {
 							console.log(error);
-							res.render('login', {msg: true, msgText: "Sorry there was an error, please try again.", colour: "#f00", username: req.session.username});
+							res.render('login', {msg: true, msgText: "Sorry there was an error, please try again.", colour: "#f00", username: req.session.username, admin: req.session.admin});
 						}
 					});
 				});

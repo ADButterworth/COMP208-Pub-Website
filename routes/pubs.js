@@ -41,6 +41,7 @@ router.get('/:pubURL', function (req, res) {
 												ownerName: 		result1[0].ownerName, 
 												ownerImgPath: 	"../img/" + result1[0].ownerImage, 
 												username: 		req.session.username,
+												admin: 			req.session.admin,
 												city:  			result1[0].city,
 												postcode: 		result1[0].postcode,
 												lat: 			response.json.results[0].geometry.location.lat,
@@ -54,6 +55,7 @@ router.get('/:pubURL', function (req, res) {
 												ownerName: 		result1[0].ownerName, 
 												ownerImgPath: 	"../img/" + result1[0].ownerImage, 
 												username: 		req.session.username,
+												admin: 			req.session.admin,
 												city:  			result1[0].city,
 												postcode: 		result1[0].postcode,
 							});							
