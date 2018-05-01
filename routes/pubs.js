@@ -21,32 +21,48 @@ router.get('/:pubURL', function (req, res) {
 	if(req.session.userID){
 		// Sanitise user input to prevent SQL injection
 		var sanitised = con.escape(req.params['pubURL']);
-		var sql = 'SELECT pubs.id, pubs.name, pubs.postcode, pubs.city, pubs.description, users.name AS ownerName, userImages.imageName AS ownerImage FROM pubs LEFT JOIN (users LEFT JOIN userImages ON userID = ID) ON ownerID = users.ID WHERE url = ' + sanitised + ' LIMIT 1';
+		var sql = 'SELECT pubs.id, pubs.ownerID, pubs.name, pubs.postcode, pubs.city, pubs.description, users.name AS ownerName, userImages.imageName AS ownerImage FROM pubs LEFT JOIN (users LEFT JOIN userImages ON userID = ID) ON ownerID = users.ID WHERE url = ' + sanitised + ' LIMIT 1';
 
 		// Get list of pubs
 		con.query(sql, function(error, result1, field) {
 			if (result1.length != 0) {
 				var sql2 = 'SELECT imageName FROM pubImages WHERE pubID = ' + result1[0].id + ' LIMIT 1';
 				con.query(sql2, function(error, result2, field) {
-
 					// API request for map
 					googleMapsClient.geocode({
 						address: "" + result1[0].city + result1[0].postcode
 					}, 
 					function(err, response) {
 						if (!err) {
-							res.render('pub', {	name: 			result1[0].name, 
-												description: 	result1[0].description, 
-												imgPath: 		"../img/" + result2[0].imageName, 
-												ownerName: 		result1[0].ownerName, 
-												ownerImgPath: 	"../img/" + result1[0].ownerImage, 
-												username: 		req.session.username,
-												admin: 			req.session.admin,
-												city:  			result1[0].city,
-												postcode: 		result1[0].postcode,
-												lat: 			response.json.results[0].geometry.location.lat,
-												lng: 			response.json.results[0].geometry.location.lng
-							});
+							if(result1[0].ownerID == req.session.userID){
+								res.render('pub', {	name: 			result1[0].name, 
+													description: 	result1[0].description, 
+													imgPath: 		"../img/" + result2[0].imageName, 
+													ownerName: 		result1[0].ownerName, 
+													ownerImgPath: 	"../img/" + result1[0].ownerImage, 
+													username: 		req.session.username,
+													admin: 			req.session.admin,
+													city:  			result1[0].city,
+													postcode: 		result1[0].postcode,
+													lat: 			response.json.results[0].geometry.location.lat,
+													lng: 			response.json.results[0].geometry.location.lng,
+													owner:  		true,
+													pubID: 			result1[0].id
+								});
+							}else{
+								res.render('pub', {	name: 			result1[0].name, 
+													description: 	result1[0].description, 
+													imgPath: 		"../img/" + result2[0].imageName, 
+													ownerName: 		result1[0].ownerName, 
+													ownerImgPath: 	"../img/" + result1[0].ownerImage, 
+													username: 		req.session.username,
+													admin: 			req.session.admin,
+													city:  			result1[0].city,
+													postcode: 		result1[0].postcode,
+													lat: 			response.json.results[0].geometry.location.lat,
+													lng: 			response.json.results[0].geometry.location.lng
+								});
+							}
 						}
 						else {
 							res.render('pub', {	name: 			result1[0].name, 
@@ -72,6 +88,21 @@ router.get('/:pubURL', function (req, res) {
 	else{
 		res.redirect('../login');
 	}
+});
+
+router.post('/', function (req, res) {
+	var sql = 'SELECT pubs.ownerID FROM pubs where id=' +req.body.pubID
+	con.query(sql,function(error, result, field){
+		if (req.session.userID == result[0].ownerID){
+			var sql = 'DELETE FROM pubs WHERE id=' +req.body.pubID
+			con.query(sql, function(error, result2, field){
+				if (error) {
+					router.send("Deletion failed!")
+				}
+			});
+		}
+	});
+	res.redirect('./');
 });
 
 // /pubs should redirect to home

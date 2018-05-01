@@ -10,6 +10,11 @@ html
 		include ../views/elements/topbar.pug
 
 		#contents
+			if (owner)
+				form(action="/pubs", method="post")
+					input(type="hidden" name="pubID" value=`${pubID}`)
+					button(type="submit") Delete pub
+
 			.imgAndName_wrapper
 				.imgAndName_imgContainer
 					img(class='imgAndName_img' src=imgPath)
