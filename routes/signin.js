@@ -64,7 +64,7 @@ router.get('/logout', function (req, res) {
 router.post('/login', function (req, res) {
 	// find user with that email
 	var inserts = [req.body.username];
-	var sql = "SELECT id, password, admin FROM users WHERE username = ?";
+	var sql = "SELECT id, password, isAdmin FROM users WHERE username = ?";
 	sql = con.format(sql, inserts);
 	con.query(sql, function(error, result1, field) {
 		// if no user, redir to error, else check password vs hash
@@ -76,7 +76,7 @@ router.post('/login', function (req, res) {
 					req.session.userID = result1[0].id;
 					req.session.username = req.body.username;
 
-					if (result1[0].admin == 1) {
+					if (result1[0].isAdmin == 1) {
 						req.session.admin = 1;
 					}
 					else {
@@ -135,6 +135,13 @@ router.post('/signup', upload.single('avatar'), function (req, res) {
 									// server side session variables
 									req.session.userID = result3[0].id;
 									req.session.username = req.body.username;
+
+									if (result1[0].isAdmin == 1) {
+										req.session.admin = 1;
+									}
+									else {
+										req.session.admin = 0;
+									}
 									
 									// redirect to new pages
 									res.redirect('/user/' + req.body.username);
