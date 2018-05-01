@@ -1,4 +1,4 @@
-INSERT INTO users (username, email, name, password, admin) 
+INSERT INTO users (username, email, name, password, isAdmin) 
 	VALUES 
 		(
 			"adbutte",
