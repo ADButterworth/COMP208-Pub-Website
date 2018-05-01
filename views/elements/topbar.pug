@@ -16,6 +16,9 @@ div(id='topbar')
 						a(href='/logout') Logout
 					li(style="float: right;")
 						a(href=`/user/${username}`) Profile
+					if admin
+						li(style="float: right;color: #f00;")
+							a(href=`/admin`) ADMIN
 				else
 					li(style="float: right;")
 						a(href='/login') Login / Sign Up

@@ -43,7 +43,7 @@ var con = mysql.createConnection({
 // if user not logged in redir to login page
 router.get('/', function (req, res) {
 	if (req.session.userID) {
-		res.render('addPub', {error: false, username: req.session.username});
+		res.render('addPub', {error: false, username: req.session.username, admin: req.session.admin});
 	}
 	else {
 		res.redirect('./login');
@@ -59,9 +59,11 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
 		var sql = "SELECT * FROM pubs WHERE url = " + sURL;
 		con.query(sql, function(error, result, field) {
 			if (result.length == 0) {
+				var description = mysql.raw(con.escape(req.body.description).replace(/\\r\\n/g, '<br/>'));
+				console.log(description);
 				// name not in use, insert requested data into db
-				var inserts = [req.body.name, req.session.userID, req.body.description, req.body.url, req.body.city, req.body.postcode, req.body.keywords];
-				var sql = "INSERT INTO pubs(name, ownerID, description, url, city, postcode, keywords) VALUES (?, ?, ?, ?, ?, ?, ?);";
+				var inserts = [req.body.name, req.session.userID, req.body.url, req.body.city, req.body.postcode, req.body.keywords, description];
+				var sql = "INSERT INTO pubs(name, ownerID, url, city, postcode, keywords, description) VALUES (?, ?, ?, ?, ?, ?, ?);";
 				sql = con.format(sql, inserts);
 
 				// insert data into db
