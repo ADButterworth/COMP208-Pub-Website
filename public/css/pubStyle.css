@@ -14,3 +14,18 @@
 	width: calc(100% - 20px);
 	height: 300px;
 }
+
+button {
+	margin: auto;
+	font-size: 24px;
+	color: white;
+	background-color: #333;
+	border: none;
+	border-radius: 7%;
+}
+button:hover{
+	background-color: red;
+}
+form{
+	text-align: right;
+}
