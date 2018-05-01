@@ -135,13 +135,7 @@ router.post('/signup', upload.single('avatar'), function (req, res) {
 									// server side session variables
 									req.session.userID = result3[0].id;
 									req.session.username = req.body.username;
-
-									if (result1[0].isAdmin == 1) {
-										req.session.admin = 1;
-									}
-									else {
-										req.session.admin = 0;
-									}
+									req.session.admin = 0;
 									
 									// redirect to new pages
 									res.redirect('/user/' + req.body.username);
