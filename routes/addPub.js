@@ -60,7 +60,6 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
 		con.query(sql, function(error, result, field) {
 			if (result.length == 0) {
 				var description = mysql.raw(con.escape(req.body.description).replace(/\\r\\n/g, '<br/>'));
-				console.log(description);
 				// name not in use, insert requested data into db
 				var inserts = [req.body.name, req.session.userID, req.body.url, req.body.city, req.body.postcode, req.body.keywords, description];
 				var sql = "INSERT INTO pubs(name, ownerID, url, city, postcode, keywords, description) VALUES (?, ?, ?, ?, ?, ?, ?);";
@@ -76,7 +75,6 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
 						var sql = "INSERT INTO pubImages (pubID, imageName) VALUES (?, ?)"
 						sql = con.format(sql, inserts);
 						con.query(sql, function(error, result, field) {
-							console.log(error);
 							// redirect to new pages
 							res.redirect('../pubs/' + req.body.url);
 						});

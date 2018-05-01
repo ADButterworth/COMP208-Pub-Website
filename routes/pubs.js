@@ -30,10 +30,11 @@ router.get('/:pubURL', function (req, res) {
 				con.query(sql2, function(error, result2, field) {
 					// API request for map
 					googleMapsClient.geocode({
-						address: "" + result1[0].city + result1[0].postcode
+						address: "" + result1[0].city + result1[0].postcode,
+						timeout: 2000
 					}, 
 					function(err, response) {
-						if (!err) {
+						if (!err && response.json.status != "ZERO_RESULTS") {
 							if(result1[0].ownerID == req.session.userID){
 								res.render('pub', {	name: 			result1[0].name, 
 													description: 	result1[0].description, 
@@ -49,7 +50,8 @@ router.get('/:pubURL', function (req, res) {
 													owner:  		true,
 													pubID: 			result1[0].id
 								});
-							}else{
+							}
+							else {
 								res.render('pub', {	name: 			result1[0].name, 
 													description: 	result1[0].description, 
 													imgPath: 		"../img/" + result2[0].imageName, 
@@ -73,7 +75,7 @@ router.get('/:pubURL', function (req, res) {
 												username: 		req.session.username,
 												admin: 			req.session.admin,
 												city:  			result1[0].city,
-												postcode: 		result1[0].postcode,
+												postcode: 		result1[0].postcode
 							});							
 						}
 					});
