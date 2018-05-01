@@ -22,11 +22,11 @@ router.get('/:username', function(req, res) {
 			if (req.session.username == req.params['username']) {
 				var sql2 = 'SELECT DISTINCT * FROM pubs WHERE ownerID = ' + result[0].id;
 				con.query(sql2, function(error, result2, field) {
-					res.render('profile', {name: result[0].name, email: result[0].email, imgPath: "../img/" + result[0].imageName, pubs: result2, username: req.session.username});
+					res.render('profile', {name: result[0].name, email: result[0].email, imgPath: "../img/" + result[0].imageName, pubs: result2, username: req.session.username, admin: req.session.admin});
 				});
 			}
 			else {
-				res.render('profile', {name: result[0].name, email: result[0].email, imgPath: "../img/" + result[0].imageName, username: req.session.username});
+				res.render('profile', {name: result[0].name, email: result[0].email, imgPath: "../img/" + result[0].imageName, username: req.session.username, admin: req.session.admin});
 			}
 		}
 		else {

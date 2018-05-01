@@ -64,7 +64,7 @@ router.get('/logout', function (req, res) {
 router.post('/login', function (req, res) {
 	// find user with that email
 	var inserts = [req.body.username];
-	var sql = "SELECT id, password FROM users WHERE username = ?";
+	var sql = "SELECT id, password, admin FROM users WHERE username = ?";
 	sql = con.format(sql, inserts);
 	con.query(sql, function(error, result1, field) {
 		// if no user, redir to error, else check password vs hash
@@ -76,20 +76,27 @@ router.post('/login', function (req, res) {
 					req.session.userID = result1[0].id;
 					req.session.username = req.body.username;
 
+					if (result1[0].admin == 1) {
+						req.session.admin = 1;
+					}
+					else {
+						req.session.admin = 0;
+					}
+
 					// user side cookie to auth with server session
 					var hour = 3600000;
 					req.session.cookie.expires = new Date(Date.now() + hour);
 					req.session.cookie.maxAge = hour;
 
-					res.render('login', {msg: true, msgText: "Login success, welcome back " + req.session.username, colour: "#0f0", username: req.session.username});
+					res.render('login', {msg: true, msgText: "Login success, welcome back " + req.session.username, colour: "#0f0", username: req.session.username, admin: req.session.admin});
 				}
 				else {
-					res.render('login', {msg: true, msgText: "Password invalid", colour: "#f00", username: req.session.username});
+					res.render('login', {msg: true, msgText: "Password invalid", colour: "#f00", username: req.session.username, admin: req.session.admin});
 				}
 			});
 		}
 		else {
-			res.render('login', {msg: true, msgText: "Username not found", colour: "#f00", username: req.session.username});
+			res.render('login', {msg: true, msgText: "Username not found", colour: "#f00", username: req.session.username, admin: req.session.admin});
 		}
 	});
 });
@@ -142,12 +149,12 @@ router.post('/signup', upload.single('avatar'), function (req, res) {
 				});
 			}
 			else {
-				res.render('login', {msg: true, msgText: "That username/email is already in use", colour: "#f00", username: req.session.username});
+				res.render('login', {msg: true, msgText: "That username/email is already in use", colour: "#f00", username: req.session.username, admin: req.session.admin});
 			}
 		});
 	}
 	else {
-		res.render('login', {msg: true, msgText: "Please enter a proper email", colour: "#f00", username: req.session.username});
+		res.render('login', {msg: true, msgText: "Please enter a proper email", colour: "#f00", username: req.session.username, admin: req.session.admin});
 	}
 });
 

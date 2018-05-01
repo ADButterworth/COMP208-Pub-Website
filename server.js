@@ -31,12 +31,12 @@ app.set('view engine', 'pug');
 // === STATIC-ISH PAGES ===
 // Index page
 app.get('/', function (req, res) {
-	res.render('home', {username: req.session.username});
+	res.render('home', {username: req.session.username, admin: req.session.admin});
 });
 
 // About page
 app.get('/about', function (req, res) {
-	res.render('about', {username: req.session.username});
+	res.render('about', {username: req.session.username, admin: req.session.admin});
 });
 
 // Redirect anything similar to index to index
