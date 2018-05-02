@@ -21,7 +21,8 @@ function showPosition(position) {
 	// show map with marker on current location
 	var latlon = {lat: parseFloat(position.coords.latitude), lng: parseFloat(position.coords.longitude)};
 	var homeMap = new google.maps.Map(document.getElementById('map'), { zoom: 15, center: latlon }); 
-	var marker = new google.maps.Marker({position: latlon, map: homeMap}); 
+	img = window.location.href + "/img/user pin.png"
+	var marker = new google.maps.Marker({position: latlon, map: homeMap, icon: img}); 
 
 	// add pubs to map
 	displayPubs(homeMap);
