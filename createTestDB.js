@@ -22,7 +22,7 @@ con.query("USE pubTestDB", function (err, result) {
 	console.log("    Database selected");
 });
 
-con.query("CREATE TABLE pubs (id INT AUTO_INCREMENT PRIMARY KEY, ownerID INT NOT NULL, name VARCHAR(40), description TEXT, url VARCHAR(15) NOT NULL, city VARCHAR(40) NOT NULL, postcode VARCHAR(7) NOT NULL, keywords VARCHAR(40))", function (err, result) {
+con.query("CREATE TABLE pubs (id INT AUTO_INCREMENT PRIMARY KEY, ownerID INT NOT NULL, name VARCHAR(40), description TEXT, url VARCHAR(15) NOT NULL, address VARCHAR(100) NOT NULL, city VARCHAR(40) NOT NULL, postcode VARCHAR(7) NOT NULL, keywords VARCHAR(40), lng DECIMAL(15,12) NOT NULL DEFAULT 0, lat DECIMAL(15,12) NOT NULL DEFAULT 0)", function (err, result) {
 	if (err) throw err;
 	console.log("    Table \"Pubs\" created");
 });

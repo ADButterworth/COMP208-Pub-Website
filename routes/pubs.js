@@ -21,64 +21,45 @@ router.get('/:pubURL', function (req, res) {
 	if(req.session.userID){
 		// Sanitise user input to prevent SQL injection
 		var sanitised = con.escape(req.params['pubURL']);
-		var sql = 'SELECT pubs.id, pubs.ownerID, pubs.name, pubs.postcode, pubs.city, pubs.description, users.name AS ownerName, userImages.imageName AS ownerImage FROM pubs LEFT JOIN (users LEFT JOIN userImages ON userID = ID) ON ownerID = users.ID WHERE url = ' + sanitised + ' LIMIT 1';
+		var sql = 'SELECT pubs.id, pubs.ownerID, pubs.name, pubs.postcode, pubs.city, pubs.description, pubs.address, pubs.lat, pubs.lng, users.name AS ownerName, userImages.imageName AS ownerImage FROM pubs LEFT JOIN (users LEFT JOIN userImages ON userID = ID) ON ownerID = users.ID WHERE url = ' + sanitised + ' LIMIT 1';
 
 		// Get list of pubs
 		con.query(sql, function(error, result1, field) {
 			if (result1.length != 0) {
 				var sql2 = 'SELECT imageName FROM pubImages WHERE pubID = ' + result1[0].id + ' LIMIT 1';
 				con.query(sql2, function(error, result2, field) {
-					// API request for map
-					googleMapsClient.geocode({
-						address: "" + result1[0].city + result1[0].postcode,
-						timeout: 2000
-					}, 
-					function(err, response) {
-						if (!err && response.json.status != "ZERO_RESULTS") {
-							if(result1[0].ownerID == req.session.userID){
-								res.render('pub', {	name: 			result1[0].name, 
-													description: 	result1[0].description, 
-													imgPath: 		"../img/" + result2[0].imageName, 
-													ownerName: 		result1[0].ownerName, 
-													ownerImgPath: 	"../img/" + result1[0].ownerImage, 
-													username: 		req.session.username,
-													admin: 			req.session.admin,
-													city:  			result1[0].city,
-													postcode: 		result1[0].postcode,
-													lat: 			response.json.results[0].geometry.location.lat,
-													lng: 			response.json.results[0].geometry.location.lng,
-													owner:  		1,
-													pubID: 			result1[0].id
-								});
-							}
-							else {
-								res.render('pub', {	name: 			result1[0].name, 
-													description: 	result1[0].description, 
-													imgPath: 		"../img/" + result2[0].imageName, 
-													ownerName: 		result1[0].ownerName, 
-													ownerImgPath: 	"../img/" + result1[0].ownerImage, 
-													username: 		req.session.username,
-													admin: 			req.session.admin,
-													city:  			result1[0].city,
-													postcode: 		result1[0].postcode,
-													lat: 			response.json.results[0].geometry.location.lat,
-													lng: 			response.json.results[0].geometry.location.lng
-								});
-							}
-						}
-						else {
-							res.render('pub', {	name: 			result1[0].name, 
-												description: 	result1[0].description, 
-												imgPath: 		"../img/" + result2[0].imageName, 
-												ownerName: 		result1[0].ownerName, 
-												ownerImgPath: 	"../img/" + result1[0].ownerImage, 
-												username: 		req.session.username,
-												admin: 			req.session.admin,
-												city:  			result1[0].city,
-												postcode: 		result1[0].postcode
-							});							
-						}
-					});
+					if(result1[0].ownerID == req.session.userID){
+						res.render('pub', {	name: 			result1[0].name, 
+											description: 	result1[0].description, 
+											imgPath: 		"../img/" + result2[0].imageName, 
+											ownerName: 		result1[0].ownerName, 
+											ownerImgPath: 	"../img/" + result1[0].ownerImage, 
+											username: 		req.session.username,
+											admin: 			req.session.admin,
+											address:  		result1[0].address,
+											city:  			result1[0].city,
+											postcode: 		result1[0].postcode,
+											lat: 			result1[0].lat,
+											lng: 			result1[0].lng,
+											owner:  		1,
+											pubID: 			result1[0].id
+						});
+					}
+					else {
+						res.render('pub', {	name: 			result1[0].name, 
+											description: 	result1[0].description, 
+											imgPath: 		"../img/" + result2[0].imageName, 
+											ownerName: 		result1[0].ownerName, 
+											ownerImgPath: 	"../img/" + result1[0].ownerImage, 
+											username: 		req.session.username,
+											admin: 			req.session.admin,
+											address:  		result1[0].address,
+											city:  			result1[0].city,
+											postcode: 		result1[0].postcode,
+											lat: 			result1[0].lat,
+											lng: 			result1[0].lng
+						});
+					}
 				});
 			}
 			else {

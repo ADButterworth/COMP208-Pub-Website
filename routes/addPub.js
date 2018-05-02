@@ -1,6 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
+// location service for map
+var googleMapsClient = require('@google/maps').createClient({
+	key: 'AIzaSyDqYM9hSp5-xP0X-_b2G10nKQCvpTccX-0'
+});
+
 // for file uploads
 const multer = require('multer');
 var storage = multer.diskStorage({
@@ -59,27 +64,42 @@ router.post('/', upload.single('avatar'), function (req, res, next) {
 		var sql = "SELECT * FROM pubs WHERE url = " + sURL;
 		con.query(sql, function(error, result, field) {
 			if (result.length == 0) {
-				var description = mysql.raw(con.escape(req.body.description).replace(/\\r\\n/g, '<br/>'));
-				// name not in use, insert requested data into db
-				var inserts = [req.body.name, req.session.userID, req.body.url, req.body.city, req.body.postcode, req.body.keywords, description];
-				var sql = "INSERT INTO pubs(name, ownerID, url, city, postcode, keywords, description) VALUES (?, ?, ?, ?, ?, ?, ?);";
-				sql = con.format(sql, inserts);
+				var lat = 0;
+				var lng = 0;
 
-				// insert data into db
-				con.query(sql, function(error, result, field) {
-					// get new pub ID 
-					var sql = "SELECT * FROM pubs WHERE url = " + sURL;
-					con.query(sql, function(error, result2, field) {
-						// link image to pub
-						var inserts = [result2[0].id, req.file.filename];
-						var sql = "INSERT INTO pubImages (pubID, imageName) VALUES (?, ?)"
+				googleMapsClient.geocode({
+						address: "" + req.body.address + ", " + req.body.city + ", " + req.body.postcode,
+						timeout: 2000
+					}, 
+					function(err, response) {
+						if (!err && response.json.status != "ZERO_RESULTS") {
+							lat = parseFloat(response.json.results[0].geometry.location.lat);
+							lng = parseFloat(response.json.results[0].geometry.location.lng);
+						}
+
+						var description = mysql.raw(con.escape(req.body.description).replace(/\\r\\n/g, '<br/>'));
+						// name not in use, insert requested data into db
+						var inserts = [req.body.name, req.session.userID, req.body.url, req.body.address, req.body.city, req.body.postcode, req.body.keywords, description, lng, lat];
+						var sql = "INSERT INTO pubs(name, ownerID, url, address, city, postcode, keywords, description, lng, lat) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 						sql = con.format(sql, inserts);
+
+						// insert data into db
 						con.query(sql, function(error, result, field) {
-							// redirect to new pages
-							res.redirect('../pubs/' + req.body.url);
+							// get new pub ID 
+							var sql = "SELECT * FROM pubs WHERE url = " + sURL;
+							con.query(sql, function(error, result2, field) {
+								// link image to pub
+								var inserts = [result2[0].id, req.file.filename];
+								var sql = "INSERT INTO pubImages (pubID, imageName) VALUES (?, ?)"
+								sql = con.format(sql, inserts);
+								con.query(sql, function(error, result, field) {
+									// redirect to new pages
+									res.redirect('../pubs/' + req.body.url);
+								});
+							});
 						});
-					});
-				});
+					}
+				);
 			}
 			else {
 				res.render('addPub', {error: true, username: req.session.username, admin: req.session.admin});
