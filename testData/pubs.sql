@@ -1,4 +1,4 @@
-INSERT INTO pubs (name, ownerID, description, address, url, city, postcode, keywords) 
+INSERT INTO pubs (name, ownerID, description, address, url, city, postcode, keywords, lat, lng) 
 	VALUES 
 		('The Test', 
 			1,
@@ -7,5 +7,7 @@ INSERT INTO pubs (name, ownerID, description, address, url, city, postcode, keyw
 			'Ashton St',
 			'Liverpool', 
 			'L69 3BX', 
-			'testing'
+			'testing',
+			53.405023,
+			-2.966135
 		);
