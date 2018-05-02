@@ -23,5 +23,22 @@ router.get("/", function(req, res) {
 	}
 });
 
+router.post('/delete', function (req, res) {
+	if (req.session.admin == 1)	{
+		var sql = 'DELETE FROM pubs WHERE id=' + req.body.pubID
+		con.query(sql, function(error, result2, field){
+			if (error) {
+				res.send("Deletion failed!")
+			}
+			else {
+				res.redirect('/admin');
+			}
+		});
+	}
+	else {
+		res.redirect('../login');
+	}
+});
+
 // last
 module.exports = router;

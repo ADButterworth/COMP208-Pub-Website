@@ -33,3 +33,7 @@ textarea {
 	color: inherit;
 	text-decoration: none;
 }
+
+.pub form {
+	margin: 0;
+}

@@ -17,3 +17,6 @@ html
 					h4 
 						a(href="/pubs/"+value.url) #{value.name}
 					p Owner: #{value.owner}
+					form(action="/admin/delete" method="post")
+						input(type="hidden" name="pubID" value=`${value.id}`)
+						button(type="submit") Delete pub
