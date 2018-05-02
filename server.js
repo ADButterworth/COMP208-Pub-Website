@@ -60,7 +60,7 @@ app.use('/findapub', find);
 
 // Point to admin router
 var admin = require("./routes/admin");
-app.use('/', admin);
+app.use('/admin', admin);
 
 // Point to signup router
 var signup = require("./routes/signin");

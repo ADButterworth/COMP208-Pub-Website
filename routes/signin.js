@@ -103,59 +103,64 @@ router.post('/login', function (req, res) {
 
 // /signup POST should validate and enter user data into DB
 router.post('/signup', upload.single('avatar'), function (req, res) {
-	// <anything>@<anything>.<anything>
-	// not the best email validation, but it'll work
-	var emailRE = /\S+@\S+\.\S+/;
-	if (emailRE.test(req.body.email)) {
-		// check email not in use
-		var inserts = [req.body.email, req.body.username];
-		var sql = "SELECT id FROM users WHERE email = ? OR username = ?";
-		sql = con.format(sql, inserts);
+	if (req.body.secretcode == "COMP208-TestSite") {
+		// <anything>@<anything>.<anything>
+		// not the best email validation, but it'll work
+		var emailRE = /\S+@\S+\.\S+/;
+		if (emailRE.test(req.body.email)) {
+			// check email not in use
+			var inserts = [req.body.email, req.body.username];
+			var sql = "SELECT id FROM users WHERE email = ? OR username = ?";
+			sql = con.format(sql, inserts);
 
-		con.query(sql, function(error, result, field) {
-			// if user exists, redir to error, else hash password and store
-			if (result.length == 0) {
-				bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
-					var inserts2 = [req.body.username, req.body.email, req.body.name, hash];
-					var sql2 = "INSERT INTO users(username, email, name, password) VALUES (?, ?, ?, ?)";
-					sql2 = con.format(sql2, inserts2);
+			con.query(sql, function(error, result, field) {
+				// if user exists, redir to error, else hash password and store
+				if (result.length == 0) {
+					bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+						var inserts2 = [req.body.username, req.body.email, req.body.name, hash];
+						var sql2 = "INSERT INTO users(username, email, name, password) VALUES (?, ?, ?, ?)";
+						sql2 = con.format(sql2, inserts2);
 
-					con.query(sql2, function(error, result, field) {
-						if(!error) {
-							// get new user ID 
-							var inserts3 = [req.body.username];
-							var sql3 = "SELECT * FROM users WHERE username = ?";
-							sql3 = con.format(sql3, inserts3);
-							con.query(sql3, function(error, result3, field) {
-								// link image to user
-								var inserts = [result3[0].id, req.file.filename];
-								var sql = "INSERT INTO userImages (userID, imageName) VALUES (?, ?)"
-								sql = con.format(sql, inserts);
-								con.query(sql, function(error, result, field) {
-									// server side session variables
-									req.session.userID = result3[0].id;
-									req.session.username = req.body.username;
-									req.session.admin = 0;
-									
-									// redirect to new pages
-									res.redirect('/user/' + req.body.username);
+						con.query(sql2, function(error, result, field) {
+							if(!error) {
+								// get new user ID 
+								var inserts3 = [req.body.username];
+								var sql3 = "SELECT * FROM users WHERE username = ?";
+								sql3 = con.format(sql3, inserts3);
+								con.query(sql3, function(error, result3, field) {
+									// link image to user
+									var inserts = [result3[0].id, req.file.filename];
+									var sql = "INSERT INTO userImages (userID, imageName) VALUES (?, ?)"
+									sql = con.format(sql, inserts);
+									con.query(sql, function(error, result, field) {
+										// server side session variables
+										req.session.userID = result3[0].id;
+										req.session.username = req.body.username;
+										req.session.admin = 0;
+										
+										// redirect to new pages
+										res.redirect('/user/' + req.body.username);
+									});
 								});
-							});
-						}
-						else {
-							console.log(error);
-							res.render('login', {msg: true, msgText: "Sorry there was an error, please try again.", colour: "#f00", username: req.session.username, admin: req.session.admin});
-						}
+							}
+							else {
+								console.log(error);
+								res.render('login', {msg: true, msgText: "Sorry there was an error, please try again.", colour: "#f00", username: req.session.username, admin: req.session.admin});
+							}
+						});
 					});
-				});
-			}
-			else {
-				res.render('login', {msg: true, msgText: "That username/email is already in use", colour: "#f00", username: req.session.username, admin: req.session.admin});
-			}
-		});
+				}
+				else {
+					res.render('login', {msg: true, msgText: "That username/email is already in use", colour: "#f00", username: req.session.username, admin: req.session.admin});
+				}
+			});
+		}
+		else {
+			res.render('login', {msg: true, msgText: "Please enter a proper email", colour: "#f00", username: req.session.username, admin: req.session.admin});
+		}
 	}
 	else {
-		res.render('login', {msg: true, msgText: "Please enter a proper email", colour: "#f00", username: req.session.username, admin: req.session.admin});
+		res.render('login', {msg: true, msgText: "Wrong secret, it will be handed out in the presentation, if you've forgotten email sgabutte@liverpool.ac.uk", colour: "#f00", username: req.session.username, admin: req.session.admin});
 	}
 });
 

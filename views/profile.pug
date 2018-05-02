@@ -21,11 +21,12 @@ html
 				p= email
 
 			if pubs
-				br
-				h4 Your Pubs:
-				#pubBlock
-					each value in pubs
-							div(class='pub')
-								h4 
-									a(href="/pubs/"+value.url) #{value.name}
-								p #{value.city}, #{value.postcode}
+				if pubs.length != 0
+					br
+					h4 Your Pubs:
+					#pubBlock
+						each value in pubs
+								div(class='pub')
+									h4 
+										a(href="/pubs/"+value.url) #{value.name}
+									p #{value.city}, #{value.postcode}

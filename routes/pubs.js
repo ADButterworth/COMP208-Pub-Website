@@ -47,7 +47,7 @@ router.get('/:pubURL', function (req, res) {
 													postcode: 		result1[0].postcode,
 													lat: 			response.json.results[0].geometry.location.lat,
 													lng: 			response.json.results[0].geometry.location.lng,
-													owner:  		true,
+													owner:  		1,
 													pubID: 			result1[0].id
 								});
 							}

@@ -5,8 +5,15 @@ html
 		style
 			include ../public/css/coreStyles.css
 			include ../public/css/formStyle.css
+			include ../public/css/userStyle.css
 		link(href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet')
 	body
 		include ../views/elements/topbar.pug
 
 		#contents
+			h4 All Pubs:
+			each value in result
+				div(class='pub')
+					h4 
+						a(href="/pubs/"+value.url) #{value.name}
+					p Owner: #{value.owner}
