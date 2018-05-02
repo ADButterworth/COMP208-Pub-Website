@@ -47,34 +47,12 @@ app.get('/', function (req, res) {
 });
 
 app.post('/', function (req, res) {
+	// handle post from user to update pins on home page
 	var sql = "SELECT pubs.lat, pubs.lng FROM pubs"
 	con.query(sql, function(error, result, field){
 		res.send(JSON.stringify(result));
 	});
 });
-
-// Getting pub locations -- buckle up buddy this could get rough 
-/*
-var mysql = require('mysql');
-var con = mysql.createConnection({
-	host: "localhost",
-	user: "root",
-	password: process.env.MYSQL,
-	database: "pubTestDB"
-});
-
-app.post('/', function (req,res){
-	var sql = "SELECT pubs.lat, pubs.lng FROM pubs"
-	con.query(sql, function(error, result, field){
-		res.render('home', {
-			latlngs: 	result,
-			username: 	req.session.username, 
-			admin: 		req.session.admin
-		});
-	})
-});
-*/
-// End of getting pub locations
 
 // About page
 app.get('/about', function (req, res) {

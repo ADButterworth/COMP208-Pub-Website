@@ -1,9 +1,14 @@
 $(document).ready(function(){
 	// check if position avalible
 	if (navigator.geolocation) {
+
+		// ask server for pub locations
 		$.post(window.location.href, {},
 			function(data, status){
+				// parse string data from server
 				pubs = JSON.parse(data);
+
+				// start drawing map
 				navigator.geolocation.getCurrentPosition(showPosition);
 			}
 		);
@@ -18,17 +23,15 @@ function showPosition(position) {
 	var homeMap = new google.maps.Map(document.getElementById('map'), { zoom: 15, center: latlon }); 
 	var marker = new google.maps.Marker({position: latlon, map: homeMap}); 
 
+	// add pubs to map
 	displayPubs(homeMap);
 }
 			
 function displayPubs(paramMap) {
 	// add pub locations
-	console.log(pubs);
-	console.log(pubs.length);
 	var markerArray = [];
 	for (i = 0; i < pubs.length; i++) {
 		var latlon = {lat: parseFloat(pubs[i].lat), lng: parseFloat(pubs[i].lng)};
 		markerArray.push(new google.maps.Marker({position: latlon, map: paramMap}));
 	}
-	console.log(markerArray);
 }
