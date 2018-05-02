@@ -25,8 +25,7 @@ function showPosition(position) {
 	var marker = new google.maps.Marker({
 		position: latlon, 
 		map: homeMap, 
-		icon: img, 
-		url: "https://www.google.com"
+		icon: img
 	}); 
 	google.maps.event.addListener(marker, 'click', function() {
 		window.location.href = this.url;

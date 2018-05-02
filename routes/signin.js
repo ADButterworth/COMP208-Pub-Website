@@ -87,8 +87,8 @@ router.post('/login', function (req, res) {
 					var hour = 3600000;
 					req.session.cookie.expires = new Date(Date.now() + hour);
 					req.session.cookie.maxAge = hour;
-
-					res.render('login', {msg: true, msgText: "Login success, welcome back " + req.session.username, colour: "#0f0", username: req.session.username, admin: req.session.admin});
+					res.redirect('/user/' + req.body.username);
+					//res.render('login', {msg: true, msgText: "Login success, welcome back " + req.session.username, colour: "#0f0", username: req.session.username, admin: req.session.admin});
 				}
 				else {
 					res.render('login', {msg: true, msgText: "Password invalid", colour: "#f00", username: req.session.username, admin: req.session.admin});
