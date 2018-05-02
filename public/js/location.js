@@ -20,7 +20,7 @@ $(document).ready(function(){
 function showPosition(position) {
 	// show map with marker on current location
 	var latlon = {lat: parseFloat(position.coords.latitude), lng: parseFloat(position.coords.longitude)};
-	var homeMap = new google.maps.Map(document.getElementById('map'), { zoom: 15, center: latlon }); 
+	var homeMap = new google.maps.Map(document.getElementById('map'), { zoom: 15, center: latlon, disableDefaultUI: true}); 
 	img = window.location.href + "/img/user pin.png"
 	var marker = new google.maps.Marker({position: latlon, map: homeMap, icon: img}); 
 
