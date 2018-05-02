@@ -64,3 +64,4 @@ typings/
 public/img/*
 !public/img/adbutte.jpg
 !public/img/testpub.jpg
+!public/img/user pin.png
