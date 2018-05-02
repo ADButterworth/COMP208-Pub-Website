@@ -48,7 +48,7 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
 	// handle post from user to update pins on home page
-	var sql = "SELECT pubs.lat, pubs.lng FROM pubs"
+	var sql = "SELECT pubs.lat, pubs.lng, pubs.url FROM pubs"
 	con.query(sql, function(error, result, field){
 		res.send(JSON.stringify(result));
 	});
