@@ -41,3 +41,7 @@ html
 					p with discounts and offers
 					p based off of your points
 					p total.
+			#map(style="height:400px; width: 100%;")
+			script
+				include ../public/js/location.js
+			script(async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqYM9hSp5-xP0X-_b2G10nKQCvpTccX-0&callback=findYou")
