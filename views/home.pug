@@ -5,6 +5,7 @@ html
 		style
 			include ../public/css/coreStyles.css
 			include ../public/css/homeStyle.css
+		script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
 		link(href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet')
 
 	body
@@ -42,6 +43,5 @@ html
 					p based off of your points
 					p total.
 			#map(style="height:400px; width: 100%;")
-			script
-				include ../public/js/location.js
-			script(async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqYM9hSp5-xP0X-_b2G10nKQCvpTccX-0&callback=findYou")
+			script(src="js/location.js")
+			script(async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqYM9hSp5-xP0X-_b2G10nKQCvpTccX-0")

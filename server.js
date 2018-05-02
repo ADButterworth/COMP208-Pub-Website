@@ -40,14 +40,17 @@ var con = mysql.createConnection({
 });
 
 app.get('/', function (req, res) {
+	res.render('home', {
+		username: 	req.session.username, 
+		admin: 		req.session.admin
+	});
+});
+
+app.post('/', function (req, res) {
 	var sql = "SELECT pubs.lat, pubs.lng FROM pubs"
 	con.query(sql, function(error, result, field){
-		res.render('home', {
-			latlngs: 	result,
-			username: 	req.session.username, 
-			admin: 		req.session.admin
-		});
-	})
+		res.send(JSON.stringify(result));
+	});
 });
 
 // Getting pub locations -- buckle up buddy this could get rough 
