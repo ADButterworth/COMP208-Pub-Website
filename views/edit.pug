@@ -15,7 +15,7 @@ html
 					form(action="/edit" method="post" id="edit")
 						h1(class='imgAndName_name') Name:
 						input(style= "margin: auto; width:100%; font-size: 48; border-style: hidden; text-align: center" type="text" name='name' form='edit' value=`${name}`)
-						h2 Description:
+						h2(class='imgAndName_name') Description:
 						textarea(form = "edit" rows="35" style="min-width: 100%; border-style: hidden" name="description" required)
 							| #{description}
 						input(type='hidden' name='pubID' value = `${pubID}`)
