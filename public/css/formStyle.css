@@ -12,10 +12,6 @@ textarea {
 	margin-bottom: 10px;
 }
 
-#errBox {
-	color: #f00;
-}
-
 .pub {
 	border: 1px solid black;
 	border-radius: 10px;

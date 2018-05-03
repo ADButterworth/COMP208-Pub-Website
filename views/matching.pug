@@ -1,0 +1,59 @@
+html
+	head
+		title Pub! - Suggest
+		link(href='/favicon.png', rel='icon')
+
+		style
+			include ../public/css/coreStyles.css
+			include ../public/css/matchingStyle.css
+			include ../public/css/formStyle.css
+
+		script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+		script(src="/js/getUserLocation.js")
+
+		script.
+			getUserLocation();
+
+		link(href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet')
+
+	body
+		include ../views/elements/topbar.pug
+
+		#contents
+			if error
+				#errBox
+					p= error
+
+			h1 Lets find you the perfect pub:
+
+			br
+
+			#sliderBox
+				form(action="/suggest")
+					h4 Liveliness: 
+					input(type="range" min="0" max="10" value="5" class="slider" name="liveliness" step="1" list="tickmarks")
+
+					h4 Price: 
+					input(type="range" min="0" max="10" value="5" class="slider" name="price")
+
+					h4 Distance: 
+					input(type="range" min="1" max="11" value="6" class="slider" name="distance")
+
+					h4 &nbsp;
+					button(type="submit") Search
+
+			br
+			hr
+
+			if result
+				if result.length > 0
+					each pub in result
+						div(class='pub')
+							h4 
+								a(href="/pubs/"+pub.url) #{pub.name}
+							p!= pub.description
+							br
+							p Liveliness: #{pub.liveliness}
+							p Pricing: #{pub.price}
+							br
+							p #{pub.city}, #{pub.postcode}

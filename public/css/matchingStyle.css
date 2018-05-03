@@ -1,0 +1,47 @@
+#sliderBox {
+	margin: auto;
+	width: 75%;
+}
+
+/* 
+	=== SLIDERS ===
+ */
+.slider {
+	border: 0;
+	margin: auto;
+	/* remove default style */
+	-webkit-appearance: none;
+	appearance: none;
+	border-radius: 5px;
+	width: 100%;
+	height: 10px;
+	background: none;
+	outline: none;
+	opacity: 0.6; 
+	-webkit-transition: .1s;
+	transition: opacity .1s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+	opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+	border-radius: 50%;
+	-webkit-appearance: none; /* Override default look */
+	appearance: none;
+	width: 15px; /* Set a specific slider handle width */
+	height: 15px; /* Slider handle height */
+	background: #006494; /* Green background */
+	cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+	border-radius: 50%;
+	width: 15px; /* Set a specific slider handle width */
+	height: 15px; /* Slider handle height */
+	background: #006494; /* Green background */
+	cursor: pointer; /* Cursor on hover */
+}
