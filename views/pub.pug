@@ -11,9 +11,15 @@ html
 
 		#contents
 			if (owner)
-				form(action="/pubs", method="post")
+				form(action="/pubs", method="post" name="delete")
+					script.
+							var something = function() {
+								var check = window.confirm('Are you sure?')
+								if(check == true)
+									document.delete.submit();
+							}
 					input(type="hidden" name="pubID" value=`${pubID}`)
-					button(type="submit") Delete pub
+					button(onclick='something()' type='button') Delete pub
 			.imgAndName_wrapper
 				.imgAndName_imgContainer
 					img(class='imgAndName_img' src=imgPath)

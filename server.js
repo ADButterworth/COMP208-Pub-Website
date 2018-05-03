@@ -49,7 +49,7 @@ app.get('/', function (req, res) {
 app.post('/', function (req, res) {
 	if (req.body.reason == "getpublocations") {
 		// handle post from user to update pins on home page
-		var sql = "SELECT pubs.lat, pubs.lng, pubs.url FROM pubs"
+		var sql = "SELECT pubs.lat, pubs.lng, pubs.url, pubs.name FROM pubs"
 		con.query(sql, function(error, result, field){
 			res.send(JSON.stringify(result));
 		});
