@@ -58,8 +58,8 @@ app.post('/', function (req, res) {
 		console.log("Location permissions not granted");
 	}
 	else if (req.body.reason == "setuserlocation") {
-		console.log("User Location Data POST");
-		console.log(req.body.location);
+		req.session.lat = parseFloat(req.body.location.lat);
+		req.session.lng = parseFloat(req.body.location.lng);
 	}
 });
 
