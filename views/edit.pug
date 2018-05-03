@@ -1,0 +1,23 @@
+html
+	head
+		title Edit - #{name}
+		link(href='/favicon.png', rel='icon')
+		style
+			include ../public/css/coreStyles.css
+			include ../public/css/pubStyle.css
+		link(href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet')
+	body
+		include ../views/elements/topbar.pug
+
+		#contents
+			if (owner)
+				.imgAndName_wrapper
+					h1(class='imgAndName_name') #{name}!
+
+				.descriptionBox
+					h2 Description:
+					form(action="/edit", method="post" name="edit")
+						input(type="hidden" name="pubID" value=`${pubID}`)
+						button(type='button') Submit changes
+			else
+				h1 How did you get here you naughty man?
