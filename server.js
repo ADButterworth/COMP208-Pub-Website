@@ -79,7 +79,7 @@ var pubs = require("./routes/pubs");
 app.use('/pubs', pubs);
 
 //Point to edit router
-var edit = requires("./routes/edit");
+var edit = require("./routes/edit");
 app.use('/edit', edit);
 
 // Point to addPub router
