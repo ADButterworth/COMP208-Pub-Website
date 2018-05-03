@@ -47,11 +47,20 @@ app.get('/', function (req, res) {
 });
 
 app.post('/', function (req, res) {
-	// handle post from user to update pins on home page
-	var sql = "SELECT pubs.lat, pubs.lng, pubs.url FROM pubs"
-	con.query(sql, function(error, result, field){
-		res.send(JSON.stringify(result));
-	});
+	if (req.body.reason == "getpublocations") {
+		// handle post from user to update pins on home page
+		var sql = "SELECT pubs.lat, pubs.lng, pubs.url FROM pubs"
+		con.query(sql, function(error, result, field){
+			res.send(JSON.stringify(result));
+		});
+	}
+	else if (req.body.reason == "nolocationerror") {
+		console.log("Location permissions not granted");
+	}
+	else if (req.body.reason == "setuserlocation") {
+		console.log("User Location Data POST");
+		console.log(req.body.location);
+	}
 });
 
 // About page

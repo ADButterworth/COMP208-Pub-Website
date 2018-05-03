@@ -45,7 +45,7 @@ html
 						div(class='pub')
 							h4 
 								a(href="/pubs/"+value.url) #{value.name}
-							p= value.description
+							p!= value.description
 							br
 							p #{value.city}, #{value.postcode}
 				else
