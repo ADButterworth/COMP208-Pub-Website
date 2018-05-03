@@ -42,11 +42,6 @@ function showPosition(position) {
 		icon: img
 	}); 
 
-	// make markers clickable
-	google.maps.event.addListener(marker, 'click', function() {
-		window.location.href = this.url;
-	});
-
 	// add pubs to map
 	displayPubs(homeMap);
 
@@ -55,12 +50,23 @@ function showPosition(position) {
 function displayPubs(paramMap) {
 	// add pub locations
 	var markerArray = [];
+	var infoArray = [];
+	var infowindow = new google.maps.InfoWindow
 	for (i = 0; i < pubs.length; i++) {
 		var latlon = {lat: parseFloat(pubs[i].lat), lng: parseFloat(pubs[i].lng)};
 		var marker = new google.maps.Marker({position: latlon, map: paramMap, url: window.location.href + "pubs/" + pubs[i].url});
-		google.maps.event.addListener(marker, 'click', function() {
+		infoArray.push(infowindow)
+		google.maps.event.addListener(marker, 'click', (function(marker,i) {
+			return function() {
+				infowindow.setContent(pubs[i].name +  '<BR/>' + 'Double click to view this pub.')
+				infowindow.open(map, marker);
+			}
+		})(marker,i));
+		google.maps.event.addListener(marker, 'dblclick', function() {
 			window.location.href = this.url;
 		});
 		markerArray.push(marker)
+		
+		
 	}
 }
