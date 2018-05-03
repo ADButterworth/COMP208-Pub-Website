@@ -10,11 +10,6 @@ var con = mysql.createConnection({
 	database: "pubTestDB"
 });
 
-// location service for map
-var googleMapsClient = require('@google/maps').createClient({
-	key: 'AIzaSyDqYM9hSp5-xP0X-_b2G10nKQCvpTccX-0'
-});
-
 // When a pub is requested
 router.get('/:pubURL', function (req, res) {
 	//only if user is logged in
