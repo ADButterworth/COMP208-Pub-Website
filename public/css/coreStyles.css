@@ -8,6 +8,10 @@ body {
 	padding: 0;
 }
 
+#errBox {
+	color: #f00;
+}
+
 /*
  * === TOP NAV BAR ===
 */

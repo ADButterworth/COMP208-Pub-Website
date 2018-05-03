@@ -27,6 +27,11 @@ con.query("CREATE TABLE pubs (id INT AUTO_INCREMENT PRIMARY KEY, ownerID INT NOT
 	console.log("    Table \"Pubs\" created");
 });
 
+con.query("CREATE TABLE pubRatings (pubID INT NOT NULL, liveliness INT NOT NULL, price INT NOT NULL);", function (err, result) {
+	if (err) throw err;
+	console.log("    Table \"pubRatings\" created");
+});
+
 con.query("CREATE TABLE users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(40) NOT NULL, email VARCHAR(256) NOT NULL, name VARCHAR(40), password VARCHAR(255) NOT NULL, isAdmin TINYINT(1) NOT NULL DEFAULT 0)", function (err, result) {
 	if (err) throw err;
 	console.log("    Table \"Users\" created");
@@ -49,6 +54,16 @@ fs.readFile(__dirname + "/testData/pubs.sql", "utf8", function (err,data) {
 	con.query(data, function (err, result) {
 		if (err) throw err;
 		console.log("    Table \"Pubs\" populated");
+	});
+});
+
+fs.readFile(__dirname + "/testData/pubRatings.sql", "utf8", function (err,data) {
+	if (err) {
+		return console.log(err);
+	}
+	con.query(data, function (err, result) {
+		if (err) throw err;
+		console.log("    Table \"pubRatings\" populated");
 	});
 });
 
