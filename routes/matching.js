@@ -53,7 +53,7 @@ router.get('/', function(req, res) {
 });
 
 function selectPubs(initPubs, preferences) {
-	const NUMBER_TO_FIND = 5;
+	const NUMBER_TO_FIND = 3;
 
 	if (initPubs.length <= NUMBER_TO_FIND) {
 		return initPubs;
