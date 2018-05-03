@@ -20,6 +20,10 @@ html
 							}
 					input(type="hidden" name="pubID" value=`${pubID}`)
 					button(onclick='something()' type='button') Delete pub
+				form(action="/pubs", method="post" name="edit")
+					input(type="hidden" name="url" value=`${url}`)
+					input(type="hidden" name="edit" value=true)
+					button(type='submit') Edit pub
 			.imgAndName_wrapper
 				.imgAndName_imgContainer
 					img(class='imgAndName_img' src=imgPath)
