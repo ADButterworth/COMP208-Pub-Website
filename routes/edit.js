@@ -10,18 +10,19 @@ var con = mysql.createConnection({
 	database: "pubTestDB"
 });
 
-// When a pub is requested
+// When a edit pub is requested
 router.get('/:pubURL', function (req, res) {
 	//only if user is logged in
 	if(req.session.userID){
 		// Sanitise user input to prevent SQL injection
 		var sanitised = con.escape(req.params['pubURL']);
-		var sql = 'SELECT pubs.id, pubs.ownerID, pubs.name, pubs.description, users.name AS ownerName FROM pubs LEFT JOIN (users LEFT JOIN userImages ON userID = ID) ON ownerID = users.ID WHERE url = ' + sanitised + ' LIMIT 1';
+		var sql = 'SELECT pubs.id, pubs.url, pubs.ownerID, pubs.name, pubs.description, users.name AS ownerName FROM pubs LEFT JOIN (users LEFT JOIN userImages ON userID = ID) ON ownerID = users.ID WHERE url = ' + sanitised + ' LIMIT 1';
 
-		// Get list of pubs
+		// Send pub to be editted details
 		con.query(sql, function(error, result1, field) {
 			if (result1.length != 0 && req.session.userID == result1[0].ownerID) {
-				res.render('pub', {	name: 			result1[0].name, 
+				res.render('edit', {	name: 			result1[0].name, 
+									url: 			result1[0].url,
 									description: 	result1[0].description, 
 									ownerName: 		result1[0].ownerName, 
 									username: 		req.session.username,
@@ -31,7 +32,7 @@ router.get('/:pubURL', function (req, res) {
 				});	
 			}
 			else {
-				// 404 error if no matching pub
+				// 404 error if no matching pub or not owner of pub
 				res.redirect('../../404');
 			}
 		});
@@ -42,18 +43,11 @@ router.get('/:pubURL', function (req, res) {
 });
 
 router.post('/', function (req, res) {
-	var sql = 'SELECT pubs.ownerID FROM pubs where id=' +req.body.pubID
+	var sql = 'UPDATE pubs SET pubs.description=\'' + req.body.description+ '\', pubs.name=\'' +req.body.name +'\' WHERE id=' +req.body.pubID
 	con.query(sql,function(error, result, field){
-		if (req.session.userID == result[0].ownerID){
-			var sql = 'DELETE FROM pubs WHERE id=' +req.body.pubID
-			con.query(sql, function(error, result2, field){
-				if (error) {
-					router.send("Deletion failed!")
-				}
-			});
-		}
+		res.redirect('./pubs/'+req.body.url);
 	});
-	res.redirect('./');
+	
 });
 
 // /pubs should redirect to home
