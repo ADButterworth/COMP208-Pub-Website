@@ -25,15 +25,13 @@ function showPosition(position) {
 	var latlon = {lat: parseFloat(position.coords.latitude), lng: parseFloat(position.coords.longitude)};
 
 	// tell server users location
-	if (navigator.geolocation) {
-		$.post(window.location.href, {reason: "setuserlocation", location: latlon},
-			function(data, status){
-				if (data == "fail") {
-					console.log("Could not tell server users location")
-				}
+	$.post(window.location.href, {reason: "setuserlocation", location: latlon},
+		function(data, status){
+			if (data == "fail") {
+				console.log("Could not tell server users location")
 			}
-		);
-	}
+		}
+	);
 	
 	// create map and add user marker
 	var homeMap = new google.maps.Map(document.getElementById('map'), { zoom: 15, center: latlon, disableDefaultUI: true}); 
