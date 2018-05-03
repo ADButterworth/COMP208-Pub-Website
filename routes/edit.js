@@ -43,7 +43,7 @@ router.get('/:pubURL', function (req, res) {
 });
 
 router.post('/', function (req, res) {
-	var sql = 'UPDATE pubs SET pubs.description=\'' + con.escape(req.body.description)+ '\', pubs.name=\'' +con.escape(req.body.name) +'\' WHERE id=' +con.escape(req.body.pubID)
+	var sql = 'UPDATE pubs SET pubs.description=' + con.escape(req.body.description)+ ', pubs.name=' +con.escape(req.body.name) +' WHERE id=' +req.body.pubID
 	con.query(sql,function(error, result, field){
 		res.redirect('./pubs/'+req.body.url);
 	});
