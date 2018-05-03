@@ -78,6 +78,10 @@ app.get('/index.?*', function (req, res) {
 var pubs = require("./routes/pubs");
 app.use('/pubs', pubs);
 
+//Point to edit router
+var edit = requires("./routes/edit");
+app.use('/edit', edit);
+
 // Point to addPub router
 var addPubs = require("./routes/addPub");
 app.use('/addpub', addPubs);
