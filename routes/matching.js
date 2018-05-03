@@ -25,7 +25,7 @@ router.post('/', function(req, res) {
 
 router.get('/', function(req, res) {
 	if (req.query.liveliness && req.session.lat) {
-		var preferences = {liveliness: req.query.liveliness, price: req.query.price, distance: parseInt(req.query.distance)};
+		var preferences = {liveliness: parseInt(req.query.liveliness), price: parseInt(req.query.price), distance: parseInt(req.query.distance)};
 		var sql = "SELECT * FROM (pubs LEFT JOIN pubImages ON id = pubID) LEFT JOIN pubRatings ON id = pubRatings.pubID;";
 		con.query(sql, function(error, result, field) {
 			// distance filter
