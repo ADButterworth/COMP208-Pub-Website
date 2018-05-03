@@ -32,9 +32,15 @@ router.get('/', function(req, res) {
 			var distance; 
 			var pubs = [];
 			for (var i = result.length - 1; i >= 0; i--) {
+				distance = 0;
 				distance = getDistance({lat: result[i].lat, lng: result[i].lng}, {lat: req.session.lat, lng: req.session.lng});
+				console.log("Distance: " + distance)
 				if (distance <= preferences.distance) {
+					console.log(distance + " <= " + preferences.distance)
 					pubs.push(result[i]);
+				}
+				else {
+					console.log(distance + " > " + preferences.distance)
 				}
 			}
 
