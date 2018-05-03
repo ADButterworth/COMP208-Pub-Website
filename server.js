@@ -60,6 +60,7 @@ app.post('/', function (req, res) {
 	else if (req.body.reason == "setuserlocation") {
 		req.session.lat = parseFloat(req.body.location.lat);
 		req.session.lng = parseFloat(req.body.location.lng);
+		req.session.save()
 	}
 });
 
