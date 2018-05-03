@@ -98,6 +98,10 @@ app.use('/', signup);
 var users = require("./routes/user");
 app.use('/user', users);
 
+// Point to matching router
+var matching = require("./routes/matching");
+app.use('/suggest', matching);
+
 // === HANDLE 404 REDIR ===
 app.get('/404', function (req, res) {
 	res.sendFile(__dirname + "/html/404.html");
