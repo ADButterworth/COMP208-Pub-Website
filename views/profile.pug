@@ -12,8 +12,15 @@ html
 
 		#contents
 			if (owner)
-				form(action="/user", method="post")
-					button(type="submit") Delete profile
+				form(action="/user", method="post" name="delete")
+					script.
+							var something = function() {
+								var check = window.confirm('Are you sure?')
+								if(check == true)
+									document.delete.submit();
+							}
+					
+					button(onclick='something()' type='button') Delete profile
 			div(class='imgAndName_wrapper')
 				div(class='imgAndName_imgContainer')
 					img(class='imgAndName_img' src=imgPath)
