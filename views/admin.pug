@@ -17,6 +17,15 @@ html
 					h4 
 						a(href="/pubs/"+value.url) #{value.name}
 					p Owner: #{value.owner}
-					form(action="/admin/delete" method="post")
+					form(action="/admin/delete" method="post" id=value.url)
+						script.
+								var something = function(url) {
+									var check = window.confirm('Are you sure?')
+									if(check == true)
+										console.log(url)
+										document.getElementById(url).submit();
+								}
 						input(type="hidden" name="pubID" value=`${value.id}`)
-						button(type="submit") Delete pub
+						button(onclick='something(\''+value.url+'\')' type='button') Delete pub
+
+					
