@@ -21,9 +21,9 @@ html
 						script.
 								var something = function(url) {
 									var check = window.confirm('Are you sure?')
-									if(check == true)
-										console.log(url)
+									if(check == true) {
 										document.getElementById(url).submit();
+									}
 								}
 						input(type="hidden" name="pubID" value=`${value.id}`)
 						button(onclick='something(\''+value.url+'\')' type='button') Delete pub
