@@ -20,7 +20,7 @@
   "homepage": "https://github.com/ADButterworth/COMP208-Pub-Website#readme",
   "dependencies": {
     "@google/maps": "^0.4.6",
-    "bcrypt": "^2.0.0",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.3",
